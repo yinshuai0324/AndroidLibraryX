@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.widget.ImageActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:background="@color/purple_200"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:text="圆角本地图片" />
+
+        <com.ooimi.widget.image.RoundImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="8dp"
+            android:src="@mipmap/ic_local_image_1"
+            app:radius="8dp" />
+
+        <com.ooimi.widget.image.RoundImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="8dp"
+            android:src="@mipmap/ic_local_image_2"
+            app:radius="50dp" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/purple_200"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:text="网络图片" />
+
+
+        <com.ooimi.widget.image.NetworkImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="8dp"
+            app:errorRes="@mipmap/ic_error"
+            app:loadingRes="@mipmap/ic_loading"
+            app:radius="8dp"
+            app:url="http://c-ssl.duitang.com/uploads/blog/202008/23/20200823085242_b4a75.thumb.1000_0.jpg" />
+
+        <com.ooimi.widget.image.NetworkRoundImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="8dp"
+            app:errorRes="@mipmap/ic_error"
+            app:loadingRes="@mipmap/ic_loading"
+            app:radius="8dp"
+            app:url="http://c-ssl.duitang.com/uploads/blog/202008/23/20200823085242_b4a75.thumb.1000_0.jpg" />
+
+        <com.ooimi.widget.image.NetworkRoundImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="8dp"
+            app:errorRes="@mipmap/ic_error"
+            app:loadingRes="@mipmap/ic_loading"
+            app:radius="50dp"
+            app:url="http://c-ssl.duitang.com/uploads/blog/202008/23/20200823085242_b4a75.thumb.1000_0.jpg" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/purple_200"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:text="图片带边框" />
+
+        <com.ooimi.widget.image.RoundImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="8dp"
+            android:src="@mipmap/ic_local_image_2"
+            app:borderColor="@color/purple_200"
+            app:borderWidth="5dp"
+            app:radius="50dp" />
+
+        <com.ooimi.widget.image.RoundImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="8dp"
+            android:src="@mipmap/ic_local_image_1"
+            app:borderColor="@color/purple_200"
+            app:borderWidth="5dp"
+            app:radius="8dp" />
+    </LinearLayout>
+
+</ScrollView>

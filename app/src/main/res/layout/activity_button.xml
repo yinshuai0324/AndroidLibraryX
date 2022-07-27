@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.widget.ButtonActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:background="@color/purple_200"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:text="圆角按钮" />
+
+        <com.ooimi.widget.button.AppButton
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/purple_200"
+            android:text="自定义圆角按钮"
+            app:radius="8dp" />
+
+        <com.ooimi.widget.button.AppButton
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/purple_200"
+            android:text="圆角按钮"
+            app:radius="20dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/purple_200"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:text="带边框按钮" />
+
+
+        <com.ooimi.widget.button.AppButton
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/purple_200"
+            android:text="圆角按钮"
+            app:borderColor="@color/color_FFB90F"
+            app:borderWidth="3dp"
+            app:radius="10dp" />
+
+
+        <com.ooimi.widget.button.AppButton
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/purple_200"
+            android:text="圆角按钮"
+            app:borderColor="@color/color_FFBBFF"
+            app:borderWidth="3dp"
+            app:radius="20dp" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/purple_200"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:text="禁用效果" />
+
+        <com.ooimi.widget.button.AppButton
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/purple_200"
+            android:text="禁用效果1"
+            app:disable="true"
+            app:disableColor="@color/color_CCCCCC"
+            app:radius="20dp" />
+
+        <com.ooimi.widget.button.AppButton
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/purple_200"
+            android:text="禁用效果-自定义文字颜色"
+            app:disable="true"
+            app:disableColor="@color/color_CCCCCC"
+            app:disableTextColor="@color/purple_200"
+            app:radius="20dp" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/purple_200"
+            android:gravity="center_vertical"
+            android:paddingLeft="16dp"
+            android:text="点击效果" />
+
+
+        <com.ooimi.widget.button.AppButton
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/purple_200"
+            android:text="颜色变化（透明度为50%）"
+            app:radius="20dp" />
+
+        <com.ooimi.widget.button.AppButton
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/purple_200"
+            android:text="缩放"
+            app:clickAnimType="zoomAnim"
+            app:radius="20dp" />
+
+    </LinearLayout>
+
+</ScrollView>
