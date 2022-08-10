@@ -5,7 +5,7 @@ task generateSourcesJar(type: Jar) {
     classifier 'sources'
 }
 
-def versionName = "1.0.0"
+def versionName = "1.0.4"
 def groupId_ = "com.ooimi.library"
 def artifactId_ = "widget"
 
@@ -21,14 +21,35 @@ afterEvaluate {
                 groupId = groupId_
                 artifactId = artifactId_
                 version = versionName
-            }
-            // 创建一个名为“debug”的 Maven 发布。
-            debug(MavenPublication) {
-                // 应用发布版本变体的组件
-                from components.debug
-                groupId = groupId_
-                artifactId = artifactId_
-                version = versionName
+                artifact generateSourcesJar
+
+                //pom配置
+                pom {
+                    name = '基础依赖库-控件'
+                    description = '这是基础依赖库的UI控件库，提供一些常用的UI控件'
+                    url = 'https://github.com/yinshuai0324/AndroidLibraryX'
+                    //开源协议
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    //开发者信息
+                    developers {
+                        developer {
+                            id = 'yinshuai'
+                            name = '尹帅'
+                            email = '1317972280@qq.com'
+                        }
+                    }
+                    //源码信息
+                    scm {
+                        connection = 'scm:git@github.com:yinshuai0324/AndroidLibraryX.git'
+                        developerConnection = 'scm:git:ssh://github.com/AndroidLibraryX.git'
+                        url = 'https://github.com/yinshuai0324/AndroidLibraryX.git'
+                    }
+                }
             }
         }
         //仓库配置
@@ -37,8 +58,8 @@ afterEvaluate {
             maven {
                 // 可以有且仅有一个仓库不指定 name 属性，会隐式设置为 Maven
                 // 根据 versionName 来判断仓库地址
-                def releasesRepoUrl = layout.buildDirectory.dir('repos/releases')
-                def snapshotsRepoUrl = layout.buildDirectory.dir('repos/snapshots')
+                def releasesRepoUrl = "https://s01.oss.sonatype.org/content/repositories/releases/"
+                def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
                 url = versionName.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
                 // 仓库用户名密码
                 credentials {
@@ -47,6 +68,7 @@ afterEvaluate {
                 }
             }
         }
+
     }
 }
 

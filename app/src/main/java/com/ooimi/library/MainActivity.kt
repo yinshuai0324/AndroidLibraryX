@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
         adapter = HomeAdapter()
         recyclerView?.layoutManager = LinearLayoutManager(this)
         recyclerView?.adapter = adapter
-
         adapter?.setOnItemClickListener { adapter, view, position ->
             val data = adapter.data[position] as String
             when (data) {
