@@ -1,0 +1,59 @@
+apply plugin: 'maven-publish'
+
+task generateSourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier 'sources'
+}
+
+def versionName = "1.0.0"
+def groupId_ = "com.ooimi.library"
+def artifactId_ = "widget"
+
+afterEvaluate {
+    publishing {
+        //发布
+        publications {
+            // 创建一个名为“release”的 Maven 发布
+            release(MavenPublication) {
+                //应用发布版本变体的组件
+                from components.release
+                // 然后，您可以自定义发布的属性，如下所示。
+                groupId = groupId_
+                artifactId = artifactId_
+                version = versionName
+            }
+            // 创建一个名为“debug”的 Maven 发布。
+            debug(MavenPublication) {
+                // 应用发布版本变体的组件
+                from components.debug
+                groupId = groupId_
+                artifactId = artifactId_
+                version = versionName
+            }
+        }
+        //仓库配置
+        repositories {
+            // 定义一个 maven 仓库
+            maven {
+                // 可以有且仅有一个仓库不指定 name 属性，会隐式设置为 Maven
+                // 根据 versionName 来判断仓库地址
+                def releasesRepoUrl = layout.buildDirectory.dir('repos/releases')
+                def snapshotsRepoUrl = layout.buildDirectory.dir('repos/snapshots')
+                url = versionName.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+                // 仓库用户名密码
+                credentials {
+                    username = readLocalProperties("maven.user.name")
+                    password = readLocalProperties("maven.user.password")
+                }
+            }
+        }
+    }
+}
+
+def readLocalProperties(String name) {
+    //加载资源
+    Properties properties = new Properties()
+    InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream()
+    properties.load(inputStream)
+    return properties.getProperty(name)
+}
