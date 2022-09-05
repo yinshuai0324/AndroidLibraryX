@@ -24,9 +24,15 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    viewBinding {
+        enabled = true
+    }
 }
 
 dependencies {
     implementation rootProject.ext.lib_core_ktx
     implementation rootProject.ext.lib_appcompat
+    api rootProject.ext.lib_coroutines
+    implementation rootProject.ext.lib_viewmodel_ktx
 }

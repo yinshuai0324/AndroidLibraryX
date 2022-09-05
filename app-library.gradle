@@ -13,4 +13,12 @@ ext {
     lib_glide_compiler = "com.github.bumptech.glide:compiler:4.13.2"
     //列表适配器
     lib_adapter = "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4"
+    //协程
+    lib_coroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9"
+    //LiveData扩展库
+    lib_livedata_ktx = "androidx.lifecycle:lifecycle-livedata-ktx:2.4.0-alpha02"
+    //viewModel扩展库
+    lib_viewmodel_ktx = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0-alpha02"
+    //lifecycle-runtime 扩展库
+    lib_runtime_ktx = "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0-alpha02"
 }

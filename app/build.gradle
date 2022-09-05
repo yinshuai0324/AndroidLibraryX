@@ -27,6 +27,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    viewBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -37,5 +41,6 @@ dependencies {
     implementation rootProject.ext.lib_adapter
     //控件UI
 //    implementation project(":library-widget")
+    implementation project(":library-base")
     implementation 'com.ooimi.library:widget:1.0.4'
 }
