@@ -5,15 +5,15 @@ import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
-import pagestatus.MultiStateContainer
-import pagestatus.PageStatus
-import pagestatus.bindMultiState
-import data.ViewModelEventType
-import expand.getVmClazz
+import com.ooimi.base.pagestatus.MultiStateContainer
+import com.ooimi.base.pagestatus.PageStatus
+import com.ooimi.base.pagestatus.bindMultiState
+import com.ooimi.base.data.ViewModelEventType
+import com.ooimi.base.expand.getVmClazz
+import com.ooimi.base.utils.inflateBindingWithGeneric
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
-import utils.inflateBindingWithGeneric
-import viewmodel.BaseViewModel
+import com.ooimi.base.viewmodel.BaseViewModel
 
 /**
  * @类作用描述:Activity基类

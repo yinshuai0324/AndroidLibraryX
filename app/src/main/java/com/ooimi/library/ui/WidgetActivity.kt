@@ -2,17 +2,13 @@ package com.ooimi.library.ui
 
 import activity.BaseActivity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.ooimi.library.R
 import com.ooimi.library.adapter.HomeAdapter
 import com.ooimi.library.databinding.ActivityWidgetBinding
 import com.ooimi.library.ui.widget.ButtonActivity
 import com.ooimi.library.ui.widget.ImageActivity
 import com.ooimi.library.ui.widget.LayoutActivity
-import viewmodel.BaseViewModel
+import com.ooimi.base.viewmodel.BaseViewModel
 
 class WidgetActivity : BaseActivity<BaseViewModel,ActivityWidgetBinding>() {
     private var adapter: HomeAdapter? = null

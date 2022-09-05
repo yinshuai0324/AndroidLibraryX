@@ -1,11 +1,8 @@
 package com.ooimi.library.ui.widget
 
 import activity.BaseActivity
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import com.ooimi.library.R
 import com.ooimi.library.databinding.ActivityImageBinding
-import viewmodel.BaseViewModel
+import com.ooimi.base.viewmodel.BaseViewModel
 
 class ImageActivity : BaseActivity<BaseViewModel, ActivityImageBinding>() {
 
