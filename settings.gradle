@@ -19,3 +19,4 @@ rootProject.name = "AndroidLibraryX"
 include ':app'
 include ':library-widget'
 include ':library-base'
+include ':library-network'

@@ -21,4 +21,10 @@ ext {
     lib_viewmodel_ktx = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0-alpha02"
     //lifecycle-runtime 扩展库
     lib_runtime_ktx = "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0-alpha02"
+    //网络请求
+    lib_retrofit = "com.squareup.retrofit2:retrofit:2.9.0"
+    //网络请求转换器
+    lib_retrofit_converter_gson = "com.squareup.retrofit2:converter-gson:2.5.0"
+    //网络请求日志打印
+    lib_retrofit_logging_interceptor = "com.github.ihsanbal:LoggingInterceptor:3.1.0"
 }

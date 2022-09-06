@@ -5,7 +5,6 @@ buildscript {
     repositories {
         maven { url 'https://s01.oss.sonatype.org/content/repositories/releases/' }
         mavenCentral()
-
         maven { url 'https://jitpack.io' }
     }
     dependencies {

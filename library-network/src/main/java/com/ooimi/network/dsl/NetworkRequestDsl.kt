@@ -1,0 +1,80 @@
+package com.ooimi.network.dsl
+
+import com.ooimi.network.data.ResponseBean
+
+
+/**
+ * 网络请求的DSL
+ */
+class NetworkRequestDsl<T> {
+
+    var api: (suspend () -> ResponseBean<T>)? = null
+
+    internal var onLoading: (() -> Unit)? = null
+        private set
+    internal var onBeforeHandler: (suspend (T?) -> T?)? = null
+        private set
+    internal var onSuccess: ((T) -> Unit)? = null
+        private set
+    internal var onSuccessEmpty: (() -> Unit)? = null
+        private set
+    internal var onSuccessEmptyData: ((T?) -> Unit)? = null
+        private set
+    internal var onComplete: (() -> Unit)? = null
+        private set
+    internal var onFailed: ((error: String?, code: Int?) -> Unit)? = null
+        private set
+    internal var onHideLoading: (() -> Unit)? = null
+        private set
+
+
+    /**
+     * 基础数据
+     */
+    var totalRecord: Int = 0
+    var baseTime: Long = 0
+    var message: String? = ""
+
+
+    internal fun clean() {
+        onSuccess = null
+        onComplete = null
+        onFailed = null
+        onLoading = null
+        onSuccessEmpty = null
+        onHideLoading = null
+    }
+
+    fun onLoading(block: () -> Unit) {
+        this.onLoading = block
+    }
+
+    fun onHideLoading(block: () -> Unit) {
+        this.onHideLoading = block
+    }
+
+    fun onBeforeHandler(block: suspend (T?) -> T?) {
+        this.onBeforeHandler = block
+    }
+
+    fun onSuccess(block: (T) -> Unit) {
+        this.onSuccess = block
+    }
+
+    fun onSuccessEmpty(block: () -> Unit) {
+        this.onSuccessEmpty = block
+    }
+
+    fun onSuccessEmptyData(block: (T?) -> Unit) {
+        this.onSuccessEmptyData = block
+    }
+
+    fun onComplete(block: () -> Unit) {
+        this.onComplete = block
+    }
+
+    fun onFailed(block: (errorMsg: String?, code: Int?) -> Unit) {
+        this.onFailed = block
+    }
+
+}

@@ -1,0 +1,35 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    compileSdk rootProject.ext.compileSdk
+
+    defaultConfig {
+        minSdk rootProject.ext.minSdk
+        targetSdk rootProject.ext.targetSdk
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    api rootProject.ext.lib_retrofit
+    implementation rootProject.ext.lib_retrofit_converter_gson
+    implementation rootProject.ext.lib_retrofit_logging_interceptor
+    implementation rootProject.ext.lib_coroutines
+    implementation rootProject.ext.lib_viewmodel_ktx
+}
