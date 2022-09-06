@@ -18,11 +18,6 @@ import java.util.concurrent.TimeUnit
  */
 object NetworkManage {
     /**
-     * tag
-     */
-    internal val LOG_TAG = "OkHttp"
-
-    /**
      * 配置信息
      */
     private var config = NetworkConfig()
@@ -80,7 +75,7 @@ object NetworkManage {
         retrofitInstance.clear()
         //判断是否有多个Host
         if (config.baseUrl.size <= 0) {
-            Log.e(LOG_TAG, "没有配置Host,请检查！！！")
+            Log.e(config.logcatTag, "没有配置Host,请检查！！！")
         } else {
             //多个或者单个Host
             config.baseUrl.forEach {
