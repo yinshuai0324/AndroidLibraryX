@@ -49,7 +49,9 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : FragmentActi
         viewBinding = inflateBindingWithGeneric(layoutInflater)
         //设置ContentView
         setContentView(viewBinding.root)
-        defaultStatusBarAndNavigationBar()
+        if (isSetDefaultStatusConfig()) {
+            defaultStatusBarAndNavigationBar()
+        }
         pageStatus = bindMultiState {
             //重试
             onRetryClick()
@@ -139,6 +141,13 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : FragmentActi
      */
     fun showToast(msg: String?) {
         msg?.let { Toast.makeText(this, it, Toast.LENGTH_SHORT).show() }
+    }
+
+    /**
+     * 是否设置默认的状态栏和导航栏样式
+     */
+    open fun isSetDefaultStatusConfig(): Boolean {
+        return true
     }
 
 
