@@ -223,7 +223,7 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewBinding> : Fragment() {
      */
     fun setStatusBarColor(color: Int, iconDark: Boolean) {
         statusBar {
-            colorRes = ContextCompat.getColor(requireContext(), color)
+            colorRes = color
             light = iconDark
         }
     }
@@ -234,7 +234,7 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewBinding> : Fragment() {
      */
     fun setNavigationBar(color: Int, iconDark: Boolean) {
         navigationBar {
-            colorRes = ContextCompat.getColor(requireContext(), color)
+            colorRes = color
             light = iconDark
         }
     }

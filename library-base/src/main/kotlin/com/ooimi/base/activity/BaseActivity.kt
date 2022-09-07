@@ -156,7 +156,7 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : FragmentActi
      */
     fun setStatusBarColor(color: Int, iconDark: Boolean) {
         statusBar {
-            colorRes = ContextCompat.getColor(this@BaseActivity, color)
+            colorRes = color
             light = iconDark
         }
     }
@@ -167,7 +167,7 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : FragmentActi
      */
     fun setNavigationBar(color: Int, iconDark: Boolean) {
         navigationBar {
-            colorRes = ContextCompat.getColor(this@BaseActivity, color)
+            colorRes = color
             light = iconDark
         }
     }
