@@ -1,6 +1,6 @@
 package com.ooimi.library.ui.widget
 
-import activity.BaseActivity
+import com.ooimi.base.activity.BaseActivity
 import com.ooimi.library.databinding.ActivityImageBinding
 import com.ooimi.base.viewmodel.BaseViewModel
 

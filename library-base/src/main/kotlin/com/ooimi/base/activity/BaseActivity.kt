@@ -1,10 +1,12 @@
-package activity
+package com.ooimi.base.activity
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
+import com.ooimi.base.R
 import com.ooimi.base.pagestatus.MultiStateContainer
 import com.ooimi.base.pagestatus.PageStatus
 import com.ooimi.base.pagestatus.bindMultiState
@@ -14,6 +16,8 @@ import com.ooimi.base.utils.inflateBindingWithGeneric
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import com.ooimi.base.viewmodel.BaseViewModel
+import com.zackratos.ultimatebarx.ultimatebarx.navigationBar
+import com.zackratos.ultimatebarx.ultimatebarx.statusBar
 
 /**
  * @类作用描述:Activity基类
@@ -45,6 +49,7 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : FragmentActi
         viewBinding = inflateBindingWithGeneric(layoutInflater)
         //设置ContentView
         setContentView(viewBinding.root)
+        defaultStatusBarAndNavigationBar()
         pageStatus = bindMultiState {
             //重试
             onRetryClick()
@@ -134,5 +139,36 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : FragmentActi
      */
     fun showToast(msg: String?) {
         msg?.let { Toast.makeText(this, it, Toast.LENGTH_SHORT).show() }
+    }
+
+
+    /**
+     * 默认的状态栏和导航栏
+     */
+    private fun defaultStatusBarAndNavigationBar() {
+        setStatusBarColor(R.color.white, true)
+        setNavigationBar(R.color.white, true)
+    }
+
+    /**
+     * 设置状态栏颜色
+     * @iconDark 状态栏icon颜色 false:白色 true:灰色
+     */
+    fun setStatusBarColor(color: Int, iconDark: Boolean) {
+        statusBar {
+            colorRes = ContextCompat.getColor(this@BaseActivity, color)
+            light = iconDark
+        }
+    }
+
+    /**
+     * 设置导航栏颜色
+     * @iconDark 状态栏icon颜色 false:白色 true:灰色
+     */
+    fun setNavigationBar(color: Int, iconDark: Boolean) {
+        navigationBar {
+            colorRes = ContextCompat.getColor(this@BaseActivity, color)
+            light = iconDark
+        }
     }
 }

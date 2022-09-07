@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
@@ -15,6 +16,8 @@ import com.ooimi.base.data.ViewModelEventType
 import com.ooimi.base.expand.getVmClazz
 import com.ooimi.base.utils.inflateBindingWithGeneric
 import com.ooimi.base.viewmodel.BaseViewModel
+import com.zackratos.ultimatebarx.ultimatebarx.navigationBar
+import com.zackratos.ultimatebarx.ultimatebarx.statusBar
 
 /**
  * 创建者：yinshuai
@@ -212,6 +215,28 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewBinding> : Fragment() {
      */
     fun showToast(msg: String?) {
         msg?.let { Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show() }
+    }
+
+    /**
+     * 设置状态栏颜色
+     * @iconDark 状态栏icon颜色 false:白色 true:灰色
+     */
+    fun setStatusBarColor(color: Int, iconDark: Boolean) {
+        statusBar {
+            colorRes = ContextCompat.getColor(requireContext(), color)
+            light = iconDark
+        }
+    }
+
+    /**
+     * 设置导航栏颜色
+     * @iconDark 状态栏icon颜色 false:白色 true:灰色
+     */
+    fun setNavigationBar(color: Int, iconDark: Boolean) {
+        navigationBar {
+            colorRes = ContextCompat.getColor(requireContext(), color)
+            light = iconDark
+        }
     }
 
     override fun onDestroyView() {

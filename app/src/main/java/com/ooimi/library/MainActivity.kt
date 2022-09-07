@@ -1,14 +1,11 @@
 package com.ooimi.library
 
-import activity.BaseActivity
+import com.ooimi.base.activity.BaseActivity
 import android.content.Intent
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ooimi.library.adapter.HomeAdapter
 import com.ooimi.library.databinding.ActivityMainBinding
 import com.ooimi.library.ui.WidgetActivity
-import com.ooimi.base.viewmodel.BaseViewModel
-import com.ooimi.network.NetworkManage
-import com.ooimi.network.request.ApiRequest
 
 class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() {
     private var adapter: HomeAdapter? = null

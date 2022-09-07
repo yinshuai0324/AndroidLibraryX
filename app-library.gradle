@@ -27,4 +27,6 @@ ext {
     lib_retrofit_converter_gson = "com.squareup.retrofit2:converter-gson:2.5.0"
     //网络请求日志打印
     lib_retrofit_logging_interceptor = "com.github.ihsanbal:LoggingInterceptor:3.1.0"
+    //状态栏
+    lib_ultimatebarx = "com.gitee.zackratos:UltimateBarX:0.8.0"
 }

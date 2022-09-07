@@ -1,6 +1,6 @@
 package com.ooimi.library.ui
 
-import activity.BaseActivity
+import com.ooimi.base.activity.BaseActivity
 import android.content.Intent
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ooimi.library.adapter.HomeAdapter
