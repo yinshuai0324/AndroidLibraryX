@@ -34,6 +34,7 @@ class NetworkRequestDsl<T> {
     var totalRecord: Int = 0
     var baseTime: Long = 0
     var message: String? = ""
+    var isShowToast: Boolean = true
 
 
     internal fun clean() {

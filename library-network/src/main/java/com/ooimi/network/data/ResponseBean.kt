@@ -1,6 +1,7 @@
 package com.ooimi.network.data
 
 import android.text.TextUtils
+import com.ooimi.network.NetworkLibrary
 
 /**
  * @类作用描述:Response基类
@@ -11,12 +12,15 @@ class ResponseBean<T> {
     //数据体
     var data: T? = null
     var body: T? = null
+
     //code
     var code: String? = "0"
+
     //message
     var msg: String? = ""
     var message: String? = ""
     var desc: String? = ""
+
     //时间戳
     var time: Long? = 0
     var timestamp: Long? = 0
@@ -85,4 +89,6 @@ class ResponseBean<T> {
         }
         return 0
     }
+
+    fun isSuccess() = (getRequestCodeAsString() == NetworkLibrary.getConfig().requestSucceedCode)
 }

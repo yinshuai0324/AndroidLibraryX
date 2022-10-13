@@ -3,9 +3,8 @@ package com.ooimi.widget.layout
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.ColorDrawable
-import android.os.Build
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.ooimi.widget.R
@@ -15,7 +14,7 @@ import com.ooimi.widget.R
  * 创建时间：2021/8/4 15:56
  * 作用描述：圆角帮助类
  */
-class RoundHelper {
+class RoundHelper constructor(val isViewGroup: Boolean) {
 
     private lateinit var mContext: Context
 
@@ -30,19 +29,14 @@ class RoundHelper {
     private val borderRectF = RectF()
 
     /**
-     * 背景绘制区域
-     */
-    private val backgroundRectF = RectF()
-
-    /**
      * 绘制的Path
      */
     private val drawPath = Path()
 
     /**
-     * 兼容高版本的临时Path
+     * 圆角裁剪Path
      */
-    private val mTempPath = Path()
+    private val roundDrawPath = Path()
 
     /**
      * 圆角值
@@ -58,12 +52,6 @@ class RoundHelper {
      * 画笔
      */
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-
-    /**
-     * 混合模式
-     */
-    private val xfermode =
-        PorterDuffXfermode(if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PorterDuff.Mode.DST_OUT else PorterDuff.Mode.DST_IN)
 
     /**
      * View
@@ -132,6 +120,11 @@ class RoundHelper {
      */
     private var tempBackgroundColor: Int = 0
 
+    /**
+     * 透明颜色
+     */
+    private val transparentColor = Color.parseColor("#00000000")
+
 
     /**
      * 初始化配置
@@ -140,12 +133,29 @@ class RoundHelper {
         mContext = context
         rootView = view
         if (rootView.background != null && rootView.background is ColorDrawable) {
-            backgroundColor = (rootView.background as ColorDrawable).color
-            tempBackgroundColor = backgroundColor
+
+        } else {
+            //如果没有设置背景颜色 或者不是设置的颜色 则不用管
         }
-        //把背景设置为透明 等下自己绘制颜色
-        val defaultColor = Color.parseColor("#00000000")
-        rootView.setBackgroundColor(defaultColor)
+
+        when (rootView.background) {
+            is ColorDrawable -> {
+                //颜色背景
+                backgroundColor = (rootView.background as ColorDrawable).color
+                tempBackgroundColor = backgroundColor
+                rootView.setBackgroundColor(transparentColor)
+            }
+            is Drawable -> {
+                //其他的背景 不用处理
+            }
+            else -> {
+                //null
+                //默认为透明 把背景设置为透明 等下自己绘制颜色
+                rootView.setBackgroundColor(transparentColor)
+            }
+        }
+
+
         attributeSet?.let {
             val attr = context.obtainStyledAttributes(it, R.styleable.RoundLayout)
             borderWidth = attr.getDimension(R.styleable.RoundLayout_borderWidth, 0f)
@@ -176,12 +186,6 @@ class RoundHelper {
     private fun updateParams() {
         //更新View的最新宽高区域
         viewRectF.set(0f, 0f, width.toFloat(), height.toFloat())
-        //更新边框矩形区域
-//        val left = borderWidth / 2
-//        val top = borderWidth / 2
-//        val right = width - borderWidth / 2
-//        val bottom = height - borderWidth / 2
-//        borderRectF.set(left, top, right, bottom)
 
         if (isCircle) {
             radius = height.coerceAtMost(width) * 1f / 2 - borderWidth
@@ -194,14 +198,17 @@ class RoundHelper {
             radiusBottomRight = radius
         }
         //更新圆角的值
-        roundParams[0] = radiusTopLeft - borderWidth
-        roundParams[1] = radiusTopLeft - borderWidth
-        roundParams[2] = radiusTopRight - borderWidth
-        roundParams[3] = radiusTopRight - borderWidth
-        roundParams[4] = radiusBottomRight - borderWidth
-        roundParams[5] = radiusBottomRight - borderWidth
-        roundParams[6] = radiusBottomLeft - borderWidth
-        roundParams[7] = radiusBottomLeft - borderWidth
+        roundParams[0] = radiusTopLeft
+        roundParams[1] = radiusTopLeft
+        roundParams[2] = radiusTopRight
+        roundParams[3] = radiusTopRight
+        roundParams[4] = radiusBottomRight
+        roundParams[5] = radiusBottomRight
+        roundParams[6] = radiusBottomLeft
+        roundParams[7] = radiusBottomLeft
+        //圆角Path
+        roundDrawPath.reset()
+        roundDrawPath.addRoundRect(viewRectF, roundParams, Path.Direction.CCW)
         //更新边框圆角的值
         borderRoundParams[0] = radiusTopLeft
         borderRoundParams[1] = radiusTopLeft
@@ -217,90 +224,38 @@ class RoundHelper {
     /**
      * 在super.draw()之前绘制
      */
-    fun onBeforeDraw(canvas: Canvas) {
-        canvas.saveLayer(viewRectF, null)
-//        if (borderWidth > 0) {
-//            //处理画布会被边框覆盖的问题
-//            val sx = (width - 2 * borderWidth) / width
-//            val sy = (height - 2 * borderWidth) / height
-//            // 缩小画布，使内容不被borders覆盖
-////            canvas.scale(sx, sy, width / 2.0f, height / 2.0f)
-//        }
-        //绘制背景颜色
-        drawBackground(canvas)
-        //绘制边框
-        drawBorder(canvas)
-        paint.reset()
+    fun onDrawBefore(canvas: Canvas) {
+        if (!isViewGroup) {
+            drawBackground(canvas)
+        }
     }
 
 
     /**
      * 在super.draw()之后绘制
      */
-    fun onAfterDraw(canvas: Canvas) {
-        paint.reset()
-        paint.isAntiAlias = true
-        paint.style = Paint.Style.FILL
-        //开始绘制圆角
-        paint.xfermode = xfermode
-        drawPath.reset()
-
-//        val offset = 1
-//        if (borderWidth > 0) {
-//            //加这个的原因的 缩小画布的时候 会导致有1个像素的误差 在这里补齐
-//            viewRectF.left = viewRectF.left - offset
-//            viewRectF.top = viewRectF.top - offset
-//            viewRectF.right = viewRectF.right + offset
-//            viewRectF.bottom = viewRectF.bottom + offset
-//        }
-//        if (borderWidth > 0) {
-////            viewRectF.left = viewRectF.left + borderWidth
-////            viewRectF.top = viewRectF.top + borderWidth
-////            viewRectF.right = viewRectF.right - borderWidth
-////            viewRectF.bottom = viewRectF.bottom - borderWidth
-////            drawPath.addRoundRect(viewRectF, roundParams, Path.Direction.CW)
-//        } else {
-//            drawPath.addRoundRect(viewRectF, roundParams, Path.Direction.CCW)
-//        }
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            mTempPath.reset()
-//            mTempPath.addRect(viewRectF, Path.Direction.CCW)
-//            mTempPath.op(drawPath, Path.Op.DIFFERENCE)
-//            canvas.drawPath(mTempPath, paint)
-//        } else {
-//            canvas.drawPath(drawPath, paint)
-//        }
-
-        //去除混合模式
-        paint.xfermode = null
-        //恢复
-        canvas.restore()
-        //绘制边框
-//        if (borderWidth > 0) {
-//            paint.style = Paint.Style.STROKE
-//            paint.strokeWidth = borderWidth
-//            paint.color = borderColor
-//            drawPath.reset()
-//            viewRectF.left = viewRectF.left + (borderWidth / 2)
-//            viewRectF.top = viewRectF.top + (borderWidth / 2)
-//            viewRectF.right = viewRectF.right - (borderWidth / 2)
-//            viewRectF.bottom = viewRectF.bottom - (borderWidth / 2)
-//            drawPath.addRoundRect(viewRectF, borderRoundParams, Path.Direction.CCW)
-//            canvas.drawPath(drawPath, paint)
-//        }
+    fun onDrawAfter(canvas: Canvas) {
+        canvas.clipPath(roundDrawPath)
+        if (isViewGroup) {
+            canvas.drawColor(tempBackgroundColor)
+        } else {
+            drawBorder(canvas)
+        }
     }
 
     /**
-     * 绘制背景
+     * 在super.dispatchDraw()之前绘制
      */
-    private fun drawBackground(canvas: Canvas) {
-        paint.color = tempBackgroundColor
-        backgroundRectF.left = viewRectF.left + (borderWidth / 2)
-        backgroundRectF.top = viewRectF.top + (borderWidth / 2)
-        backgroundRectF.right = viewRectF.right - (borderWidth / 2)
-        backgroundRectF.bottom = viewRectF.bottom - (borderWidth / 2)
-        drawPath.addRoundRect(backgroundRectF, roundParams, Path.Direction.CW)
-        canvas.drawPath(drawPath, paint)
+    fun onDispatchDrawBefore(canvas: Canvas) {
+    }
+
+    /**
+     * 在super.dispatchDraw()之后绘制
+     */
+    fun onDispatchDrawAfter(canvas: Canvas) {
+        if (isViewGroup) {
+            drawBorder(canvas)
+        }
     }
 
     /**
@@ -309,15 +264,28 @@ class RoundHelper {
     private fun drawBorder(canvas: Canvas) {
         if (borderWidth > 0) {
             drawPath.reset()
-            borderRectF.left = viewRectF.left + (borderWidth / 2)
-            borderRectF.top = viewRectF.top + (borderWidth / 2)
-            borderRectF.right = viewRectF.right - (borderWidth / 2)
-            borderRectF.bottom = viewRectF.bottom - (borderWidth / 2)
+            borderRectF.left = viewRectF.left
+            borderRectF.top = viewRectF.top
+            borderRectF.right = viewRectF.right
+            borderRectF.bottom = viewRectF.bottom
             drawPath.addRoundRect(borderRectF, roundParams, Path.Direction.CW)
             paint.style = Paint.Style.STROKE
-            paint.strokeWidth = borderWidth
+            paint.strokeWidth = borderWidth * 2
             paint.color = borderColor
             canvas.drawPath(drawPath, paint)
+        }
+    }
+
+    /**
+     * 绘制背景
+     */
+    private fun drawBackground(canvas: Canvas) {
+        if (tempBackgroundColor != 0) {
+            paint.color = tempBackgroundColor
+            drawPath.addRoundRect(viewRectF, roundParams, Path.Direction.CW)
+            canvas.drawPath(drawPath, paint)
+        } else {
+            //否则就是自己设置背景了
         }
     }
 
@@ -404,7 +372,6 @@ class RoundHelper {
         updateParams()
         rootView.invalidate()
     }
-
 
     /**
      * 获取颜色

@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
 }
+apply from: "android-maven-publishing.gradle"
 
 android {
     compileSdk rootProject.ext.compileSdk

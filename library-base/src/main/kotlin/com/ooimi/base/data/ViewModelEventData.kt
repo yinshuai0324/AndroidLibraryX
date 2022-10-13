@@ -11,5 +11,6 @@ data class ViewModelEventData(
     val type: ViewModelEventType = ViewModelEventType.EVENT_NONE,
     val pageStatus: PageStatus = PageStatus.STATUS_SUCCEED,
     val title: String = "",
-    val desc: String = ""
+    val desc: String = "",
+    val toastType: Int = 0
 )

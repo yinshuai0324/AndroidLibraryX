@@ -1,7 +1,9 @@
 package com.ooimi.base.viewmodel
 
+import android.app.Activity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.blankj.utilcode.util.ActivityUtils
 import com.ooimi.base.pagestatus.PageStatus
 import com.ooimi.base.data.ViewModelEventData
 import com.ooimi.base.data.ViewModelEventType
@@ -19,6 +21,11 @@ open class BaseViewModel : ViewModel() {
      * 事件通知
      */
     val eventNoticeData = SingleLiveEvent<ViewModelEventData>()
+
+    /**
+     * 每页的数据条数
+     */
+    val pageSize = 15
 
     /**
      * toast
@@ -72,6 +79,16 @@ open class BaseViewModel : ViewModel() {
         }
     }
 
+    /**
+     * 刷新页面数据
+     */
+    fun refreshPageData() {
+        viewModelScope.launch(Dispatchers.Main) {
+            eventNoticeData.value = ViewModelEventData(ViewModelEventType.EVENT_REFRESH_DATA)
+        }
+    }
+
+
 
     /**
      * 改变页面状态
@@ -81,5 +98,12 @@ open class BaseViewModel : ViewModel() {
             eventNoticeData.value =
                 ViewModelEventData(ViewModelEventType.EVENT_CHANGE_PAGE_STATUS, pageStatus = status)
         }
+    }
+
+    /**
+     * 获取Activity
+     */
+    fun getActivity(): Activity {
+        return ActivityUtils.getTopActivity()
     }
 }

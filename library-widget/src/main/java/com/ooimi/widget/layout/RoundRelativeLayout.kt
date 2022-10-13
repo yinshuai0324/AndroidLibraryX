@@ -13,9 +13,9 @@ import com.ooimi.widget.layout.RoundLayout
  * 创建时间：2021/8/4 14:08
  * 作用描述：圆角相对布局
  */
-class RoundRelativeLayout : RelativeLayout, RoundLayout {
+open class RoundRelativeLayout : RelativeLayout, RoundLayout {
 
-    private val helper = RoundHelper()
+    private val helper = RoundHelper(true)
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attributeSet: AttributeSet?) : super(context, attributeSet) {
@@ -28,10 +28,16 @@ class RoundRelativeLayout : RelativeLayout, RoundLayout {
     }
 
 
+    override fun onDraw(canvas: Canvas) {
+        helper.onDrawBefore(canvas)
+        super.onDraw(canvas)
+        helper.onDrawAfter(canvas)
+    }
+
     override fun dispatchDraw(canvas: Canvas) {
-        helper.onBeforeDraw(canvas)
+        helper.onDispatchDrawBefore(canvas)
         super.dispatchDraw(canvas)
-        helper.onAfterDraw(canvas)
+        helper.onDispatchDrawAfter(canvas)
     }
 
     override fun setBorderWidth(width: Float) {

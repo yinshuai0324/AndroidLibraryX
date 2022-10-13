@@ -4,7 +4,6 @@ import android.util.Log
 import android.util.Log.VERBOSE
 import com.ihsanbal.logging.Level
 import com.ihsanbal.logging.LoggingInterceptor
-import com.ooimi.network.config.NetworkConfig
 import com.ooimi.network.ssl.SSLManager
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -16,11 +15,11 @@ import java.util.concurrent.TimeUnit
 /**
  * 网络框架管理
  */
-object NetworkManage {
+object NetworkLibrary {
     /**
      * 配置信息
      */
-    private var config = NetworkConfig()
+    private var config = NetworkLibraryBuilder()
 
     /**
      * okHttp客户端
@@ -30,7 +29,7 @@ object NetworkManage {
     /**
      * retrofit实例
      */
-    private var retrofitInstance: HashMap<String, Retrofit> = hashMapOf()
+    internal var retrofitInstance: HashMap<String, Retrofit> = hashMapOf()
 
     /**
      * 默认的HostKey
@@ -48,7 +47,7 @@ object NetworkManage {
             OkHttpClient.Builder()
         }
         //设置配置信息
-        config.interceptor.forEach {
+        config.interceptors.forEach {
             okHttpClientBuilder.addInterceptor(it)
         }
         //是否开启日志打印
@@ -101,6 +100,7 @@ object NetworkManage {
     /**
      * 根据Host 创建ApiService
      */
+    @JvmStatic
     fun <T> createApiService(key: String = KEY_DEFAULT_HOST, clazz: Class<T>): T {
         if (retrofitInstance.containsKey(key)) {
             val instance = retrofitInstance[key]
@@ -118,29 +118,53 @@ object NetworkManage {
     /**
      * 获取全局的Retrofit实例
      */
+    @JvmStatic
     fun getDefaultRetrofitInstance(): Retrofit {
-        return getRetrofitInstance(KEY_DEFAULT_HOST)
+        return getRetrofitInstance(config.baseUrl[KEY_DEFAULT_HOST] ?: "")
     }
 
     /**
      * 获取配置文件
      */
-    fun getConfig(): NetworkConfig {
+    internal fun getConfig(): NetworkLibraryBuilder {
         return config
     }
 
     /**
-     * 设置配置文件
+     * 获取OkHttpClient
      */
-    fun setConfig(config: NetworkConfig): NetworkManage {
-        this.config = config
-        return this
+    @JvmStatic
+    fun getOkhttpClient(): OkHttpClient {
+        return okHttpClient
+    }
+
+
+    /**
+     * 获取默认的ApiService
+     */
+    @JvmStatic
+    fun <T> getDefaultApiService(api: Class<T>): T {
+        return getDefaultRetrofitInstance().create(api)
+    }
+
+    /**
+     * 获取默认的ApiService
+     */
+    @JvmStatic
+    fun <T> getApiService(key: String, api: Class<T>): T {
+        if (retrofitInstance.containsKey(key) && retrofitInstance[key] != null) {
+            return retrofitInstance[key]!!.create(api)
+        } else {
+            throw Exception("获取ApiService时异常，未找到key:${key}对应的Retrofit实例")
+        }
     }
 
     /**
      * 初始化
      */
-    fun init() {
+    internal fun init(config: NetworkLibraryBuilder) {
+        this.config = config
         config()
     }
+
 }

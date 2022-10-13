@@ -1,9 +1,10 @@
 package com.ooimi.library.application
 
 import android.app.Application
+import com.ooimi.base.BaseLibraryBuilder
 import com.ooimi.library.network.MainRequestResultHandler
-import com.ooimi.network.NetworkManage
-import com.ooimi.network.config.NetworkConfig
+import com.ooimi.network.NetworkLibrary
+import com.ooimi.network.NetworkLibraryBuilder
 
 /**
  * @类作用描述:
@@ -17,17 +18,13 @@ class MainApplication : Application() {
     }
 
     private fun initNetwork() {
-        val config = NetworkConfig().apply {
-            isOpenLog = true
-            requestSucceedCode = "0"
-            baseUrl = hashMapOf<String, String>().apply {
-                put(NetworkManage.KEY_DEFAULT_HOST, "https://www.baidu.com")
-            }
-            readTimeout = 3000
-            writeTimeout = 3000
-            logcatTag = "Okhttp"
-            requestResultHandler = MainRequestResultHandler()
-        }
-        NetworkManage.setConfig(config).init()
+        NetworkLibraryBuilder()
+            .addBaseUrl(NetworkLibrary.KEY_DEFAULT_HOST, "https://www.baidu.com")
+            .setOpenLog(true)
+            .setIsSupportHttps(true)
+            .setLogcatTag("OkHttp")
+            .setRequestResultHandler(MainRequestResultHandler())
+            .init()
+        BaseLibraryBuilder().init()
     }
 }

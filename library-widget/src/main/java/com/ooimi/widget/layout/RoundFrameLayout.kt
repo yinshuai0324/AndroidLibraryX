@@ -11,9 +11,9 @@ import android.widget.FrameLayout
  * 创建时间：2021/8/4 14:08
  * 作用描述：圆角帧布局
  */
-class RoundFrameLayout : FrameLayout, RoundLayout {
+open class RoundFrameLayout : FrameLayout, RoundLayout {
 
-    private val helper = RoundHelper()
+    private val helper = RoundHelper(true)
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attributeSet: AttributeSet?) : super(context, attributeSet) {
@@ -25,11 +25,16 @@ class RoundFrameLayout : FrameLayout, RoundLayout {
         helper.onSizeChange(w, h)
     }
 
+    override fun onDraw(canvas: Canvas) {
+        helper.onDrawBefore(canvas)
+        super.onDraw(canvas)
+        helper.onDrawAfter(canvas)
+    }
 
     override fun dispatchDraw(canvas: Canvas) {
-        helper.onBeforeDraw(canvas)
+        helper.onDispatchDrawBefore(canvas)
         super.dispatchDraw(canvas)
-        helper.onAfterDraw(canvas)
+        helper.onDispatchDrawAfter(canvas)
     }
 
     override fun setBorderWidth(width: Float) {

@@ -58,6 +58,13 @@ class NetworkImageView : BaseImageView {
         }
     }
 
+    /**
+     * 加载默认的图片
+     */
+    fun loadDefault() {
+        Glide.with(this).load(loadingRes).into(this)
+    }
+
 
     /**
      * 加载图片 入队

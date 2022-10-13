@@ -37,6 +37,11 @@ enum class ViewModelEventType {
     EVENT_CHANGE_PAGE_STATUS,
 
     /**
+     * 刷新数据
+     */
+    EVENT_REFRESH_DATA,
+
+    /**
      * 事件类型：无 不处理该事件类型
      */
     EVENT_NONE

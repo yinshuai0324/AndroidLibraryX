@@ -9,7 +9,9 @@ import com.ooimi.network.handler.BaseRequestResultHandler
  * @创建时间: 2022-09-06 15:20
  */
 class MainRequestResultHandler : BaseRequestResultHandler {
-    override fun onData(data: ResponseBean<*>) {
+
+
+    override fun onData(data: ResponseBean<*>, isShowToast: Boolean) {
         when (data.getRequestCodeAsInt()) {
             0 -> {
                 //成功

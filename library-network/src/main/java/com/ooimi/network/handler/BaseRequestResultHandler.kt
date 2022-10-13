@@ -12,6 +12,6 @@ interface BaseRequestResultHandler {
     /**
      * 获取到数据时回掉
      */
-    fun onData(data: ResponseBean<*>)
+    fun onData(data: ResponseBean<*>, isShowToast: Boolean)
 
 }

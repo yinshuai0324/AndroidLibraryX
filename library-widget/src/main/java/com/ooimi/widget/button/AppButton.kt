@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.util.Log
 import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
@@ -23,10 +24,15 @@ import com.ooimi.widget.expand.toColorAlpha
  */
 class AppButton : AppCompatTextView, RoundLayout, View.OnClickListener {
 
+    companion object {
+        const val ANIM_ALPHA = 1
+        const val ANIM_ZOOM = 2
+    }
+
     /**
      * 圆角工具类
      */
-    private val helper = RoundHelper()
+    private val helper = RoundHelper(false)
 
 
     /**
@@ -100,15 +106,22 @@ class AppButton : AppCompatTextView, RoundLayout, View.OnClickListener {
         helper.onSizeChange(w, h)
     }
 
-    override fun draw(canvas: Canvas) {
-        helper.onBeforeDraw(canvas)
-        super.draw(canvas)
-        helper.onAfterDraw(canvas)
+
+    override fun onDraw(canvas: Canvas) {
+        helper.onDrawBefore(canvas)
+        super.onDraw(canvas)
+        helper.onDrawAfter(canvas)
     }
+//
+//    override fun dispatchDraw(canvas: Canvas) {
+//        helper.onDispatchDrawBefore(canvas)
+//        super.dispatchDraw(canvas)
+//        helper.onDispatchDrawAfter(canvas)
+//    }
 
 
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        when (event.actionMasked) {
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        when (event?.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
                 downClickAnim()
             }
@@ -130,9 +143,7 @@ class AppButton : AppCompatTextView, RoundLayout, View.OnClickListener {
         when (clickAnimType) {
             1 -> {
                 //绘制背景颜色
-                helper.setBackgroundColorNotRes(if (disable) disableColor else clickColor)
-                super.setTextColor(mTextColor.toColorAlpha(0.5f))
-                invalidate()
+                this.alpha = 0.5f
             }
             2 -> {
                 //缩放动画
@@ -150,10 +161,7 @@ class AppButton : AppCompatTextView, RoundLayout, View.OnClickListener {
         }
         when (clickAnimType) {
             1 -> {
-                //绘制背景颜色
-                helper.setBackgroundColorNotRes(if (disable) disableColor else helper.getBackgroundColor())
-                super.setTextColor(mTextColor)
-                invalidate()
+                this.alpha = 1f
             }
             2 -> {
                 //缩放动画
@@ -242,6 +250,12 @@ class AppButton : AppCompatTextView, RoundLayout, View.OnClickListener {
         super.setTextColor(color)
     }
 
+    /**
+     * 设置点击时的动画类型
+     */
+    fun setAnimType(animType: Int) {
+        this.clickAnimType = animType
+    }
 
     override fun onClick(v: View) {
         if (disable) {

@@ -2,7 +2,7 @@ package com.ooimi.network.expand
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ooimi.network.NetworkManage
+import com.ooimi.network.NetworkLibrary
 import com.ooimi.network.dsl.NetworkRequestDsl
 import com.ooimi.network.request.ApiRequest
 import kotlinx.coroutines.launch
@@ -39,14 +39,14 @@ fun <T> ViewModel.safeApiRequest(dsl: NetworkRequestDsl<T>.() -> Unit) {
  * @key hostKey
  */
 fun <T> ViewModel.getApiService(key: String, apiService: Class<T>): T {
-    return NetworkManage.createApiService(key, apiService)
+    return NetworkLibrary.createApiService(key, apiService)
 }
 
 /**
  * 获取默认的ApiService
  */
 fun <T> ViewModel.getDefaultApiService(apiService: Class<T>): T {
-    return NetworkManage.getDefaultRetrofitInstance().create(apiService)
+    return NetworkLibrary.getDefaultRetrofitInstance().create(apiService)
 }
 
 /**

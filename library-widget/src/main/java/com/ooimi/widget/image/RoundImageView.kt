@@ -174,7 +174,7 @@ open class RoundImageView : BaseImageView {
     }
 
     private fun updateDrawBorderPaint() {
-        paint.strokeWidth = borderWidth
+        paint.strokeWidth = borderWidth * 2
         paint.style = Paint.Style.STROKE
         paint.color = borderColor
         paint.xfermode = null

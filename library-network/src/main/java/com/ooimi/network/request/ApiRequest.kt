@@ -1,6 +1,6 @@
 package com.ooimi.network.request
 
-import com.ooimi.network.NetworkManage
+import com.ooimi.network.NetworkLibrary
 import com.ooimi.network.code.HttpCode
 import com.ooimi.network.dsl.NetworkRequestDsl
 import kotlinx.coroutines.*
@@ -21,7 +21,7 @@ object ApiRequest {
     /**
      * 配置信息
      */
-    private val config = NetworkManage.getConfig()
+    private val config = NetworkLibrary.getConfig()
 
     /**
      * Api请求 不处理异常 直接返回数据 需要自己捕获异常
@@ -48,6 +48,7 @@ object ApiRequest {
      * Api请求 安全调用 处理好请求时可能发生的异常
      * @param dsl 网络请求dsl
      */
+    @JvmStatic
     fun <T> safeApiRequest(
         dsl: NetworkRequestDsl<T>.() -> Unit
     ) {
@@ -104,7 +105,7 @@ object ApiRequest {
                         )
                     }
                     //处理请求结果
-                    config.requestResultHandler?.onData(it)
+                    config.requestResultHandler?.onData(it, retrofitCoroutine.isShowToast)
                 }
             } catch (e: UnknownHostException) {
                 launchUi(scope) {
@@ -131,5 +132,25 @@ object ApiRequest {
 
     private fun launchUi(scope: CoroutineScope, block: () -> Unit) {
         scope.launch(Dispatchers.Main) { block.invoke() }
+    }
+
+    /**
+     * 获取默认的ApiService
+     */
+    @JvmStatic
+    fun <T> getDefaultApiService(api: Class<T>): T {
+        return NetworkLibrary.getDefaultRetrofitInstance().create(api)
+    }
+
+    /**
+     * 获取默认的ApiService
+     */
+    @JvmStatic
+    fun <T> getApiService(key: String, api: Class<T>): T {
+        if (NetworkLibrary.retrofitInstance.containsKey(key) && NetworkLibrary.retrofitInstance[key] != null) {
+            return NetworkLibrary.retrofitInstance[key]!!.create(api)
+        } else {
+            throw Exception("获取ApiService时异常，未找到key:${key}对应的Retrofit实例")
+        }
     }
 }
