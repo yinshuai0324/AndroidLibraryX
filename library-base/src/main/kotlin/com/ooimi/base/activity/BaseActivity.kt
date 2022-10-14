@@ -1,5 +1,6 @@
 package com.ooimi.base.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -51,6 +52,11 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : AppCompatAct
      * 加载框
      */
     var loadingView: LoadingModelDialog? = null
+
+    /**
+     * 监听ActivityResult
+     */
+    var onActivityResult: ((requestCode: Int, resultCode: Int, data: Intent?) -> Unit)? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -283,5 +289,9 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : AppCompatAct
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        onActivityResult?.invoke(requestCode, resultCode, data)
+    }
 
 }
