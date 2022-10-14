@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.DrawableRes
+import com.ooimi.base.BaseLibrary
 import com.ooimi.base.pagestatus.MultiState
 import com.ooimi.base.pagestatus.MultiStateContainer
 import com.ooimi.base.pagestatus.MultiStatePage
@@ -21,22 +22,33 @@ class EmptyRetryState : MultiState() {
     private lateinit var tvEmptyMsg: TextView
     private lateinit var imgEmpty: ImageView
     private lateinit var retryBtn: Button
+    private lateinit var rootView: View
 
     override fun onCreateMultiStateView(
         context: Context,
         inflater: LayoutInflater,
         container: MultiStateContainer
     ): View {
-        return inflater.inflate(R.layout.mult_state_empty_retry, container, false)
+        return inflater.inflate(
+            BaseLibrary.config?.pageStatusModelImp?.getEmptyRetryStateRes()
+                ?: R.layout.mult_state_empty_retry, container, false
+        )
     }
 
     override fun onMultiStateViewCreate(view: View) {
-        tvEmptyMsg = view.findViewById(R.id.tv_empty_msg)
-        imgEmpty = view.findViewById(R.id.img_empty)
-        retryBtn = view.findViewById(R.id.retryBtn)
-
-        setEmptyMsg(MultiStatePage.config.emptyMsg)
-        setEmptyIcon(MultiStatePage.config.emptyIcon)
+        rootView = view
+        if (BaseLibrary.config?.pageStatusModelImp != null) {
+            BaseLibrary.config?.pageStatusModelImp?.initEmptyRetryStateView(
+                view,
+                MultiStatePage.config
+            )
+        } else {
+            tvEmptyMsg = view.findViewById(R.id.tv_empty_msg)
+            imgEmpty = view.findViewById(R.id.img_empty)
+            retryBtn = view.findViewById(R.id.retryBtn)
+            setEmptyMsg(MultiStatePage.config.emptyMsg)
+            setEmptyIcon(MultiStatePage.config.emptyIcon)
+        }
     }
 
     override fun enableReload(): Boolean {
@@ -44,14 +56,14 @@ class EmptyRetryState : MultiState() {
     }
 
     override fun bindRetryView(): View {
-        return retryBtn
+        return BaseLibrary.config?.pageStatusModelImp?.getEmptyRetryView(rootView) ?: retryBtn
     }
 
-    fun setEmptyMsg(emptyMsg: String) {
+    private fun setEmptyMsg(emptyMsg: String) {
         tvEmptyMsg.text = emptyMsg
     }
 
-    fun setEmptyIcon(@DrawableRes emptyIcon: Int) {
+    private fun setEmptyIcon(@DrawableRes emptyIcon: Int) {
         imgEmpty.setImageResource(emptyIcon)
     }
 }

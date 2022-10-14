@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.DrawableRes
+import com.ooimi.base.BaseLibrary
 import com.ooimi.base.R
 import com.ooimi.base.pagestatus.MultiState
 import com.ooimi.base.pagestatus.MultiStateContainer
@@ -26,23 +27,33 @@ class NetworkErrorState : MultiState() {
         inflater: LayoutInflater,
         container: MultiStateContainer
     ): View {
-        return inflater.inflate(R.layout.mult_network_state_error, container, false)
+        return inflater.inflate(
+            BaseLibrary.config?.pageStatusModelImp?.getNetworkErrorStateRes()
+                ?: R.layout.mult_network_state_error, container, false
+        )
     }
 
     override fun onMultiStateViewCreate(view: View) {
-        tvErrorMsg = view.findViewById(R.id.tv_error_msg)
-        imgError = view.findViewById(R.id.img_error)
+        if (BaseLibrary.config?.pageStatusModelImp != null) {
+            BaseLibrary.config?.pageStatusModelImp?.initNetworkErrorStateView(
+                view,
+                MultiStatePage.config
+            )
+        } else {
+            tvErrorMsg = view.findViewById(R.id.tv_error_msg)
+            imgError = view.findViewById(R.id.img_error)
 
-        setErrorMsg(MultiStatePage.config.networkErrorMsg)
-        setErrorIcon(MultiStatePage.config.networkErrorIcon)
+            setErrorMsg(MultiStatePage.config.networkErrorMsg)
+            setErrorIcon(MultiStatePage.config.networkErrorIcon)
+        }
     }
 
 
-    fun setErrorMsg(errorMsg: String) {
+    private fun setErrorMsg(errorMsg: String) {
         tvErrorMsg.text = errorMsg
     }
 
-    fun setErrorIcon(@DrawableRes errorIcon: Int) {
+    private fun setErrorIcon(@DrawableRes errorIcon: Int) {
         imgError.setImageResource(errorIcon)
     }
 }

@@ -1,6 +1,7 @@
 package com.ooimi.base
 
 import com.ooimi.base.imp.BaseLoadingModel
+import com.ooimi.base.imp.BasePageStatusModel
 import com.ooimi.base.imp.BaseToastModel
 
 /**
@@ -19,6 +20,11 @@ class BaseLibraryBuilder {
      */
     internal var toastModelImp: BaseToastModel? = null
 
+    /**
+     * Activity缺省页配置
+     */
+    internal var pageStatusModelImp: BasePageStatusModel? = null
+
 
     fun setLoadingImp(imp: BaseLoadingModel): BaseLibraryBuilder {
         this.loadingModelImp = imp
@@ -27,6 +33,11 @@ class BaseLibraryBuilder {
 
     fun setToastImp(imp: BaseToastModel): BaseLibraryBuilder {
         this.toastModelImp = imp
+        return this
+    }
+
+    fun setPageStatusImp(imp: BasePageStatusModel): BaseLibraryBuilder {
+        this.pageStatusModelImp = imp
         return this
     }
 

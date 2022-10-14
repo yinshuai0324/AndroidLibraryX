@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.DrawableRes
+import com.ooimi.base.BaseLibrary
 import com.ooimi.base.pagestatus.MultiState
 import com.ooimi.base.pagestatus.MultiStateContainer
 import com.ooimi.base.pagestatus.MultiStatePage
@@ -20,28 +21,34 @@ class EmptyState : MultiState() {
 
     private lateinit var tvEmptyMsg: TextView
     private lateinit var imgEmpty: ImageView
-
     override fun onCreateMultiStateView(
         context: Context,
         inflater: LayoutInflater,
         container: MultiStateContainer
     ): View {
-        return inflater.inflate(R.layout.mult_state_empty, container, false)
+        return inflater.inflate(
+            BaseLibrary.config?.pageStatusModelImp?.getEmptyStateRes()
+                ?: R.layout.mult_state_empty, container, false
+        )
     }
 
     override fun onMultiStateViewCreate(view: View) {
-        tvEmptyMsg = view.findViewById(R.id.tv_empty_msg)
-        imgEmpty = view.findViewById(R.id.img_empty)
+        if (BaseLibrary.config?.pageStatusModelImp != null) {
+            BaseLibrary.config?.pageStatusModelImp?.initEmptyStateView(view, MultiStatePage.config)
+        } else {
+            tvEmptyMsg = view.findViewById(R.id.tv_empty_msg)
+            imgEmpty = view.findViewById(R.id.img_empty)
+            setEmptyMsg(MultiStatePage.config.emptyMsg)
+            setEmptyIcon(MultiStatePage.config.emptyIcon)
+        }
 
-        setEmptyMsg(MultiStatePage.config.emptyMsg)
-        setEmptyIcon(MultiStatePage.config.emptyIcon)
     }
 
-    fun setEmptyMsg(emptyMsg: String) {
+    private fun setEmptyMsg(emptyMsg: String) {
         tvEmptyMsg.text = emptyMsg
     }
 
-    fun setEmptyIcon(@DrawableRes emptyIcon: Int) {
+    private fun setEmptyIcon(@DrawableRes emptyIcon: Int) {
         imgEmpty.setImageResource(emptyIcon)
     }
 }

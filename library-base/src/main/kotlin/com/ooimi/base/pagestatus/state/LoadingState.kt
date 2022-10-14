@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
+import com.ooimi.base.BaseLibrary
 import com.ooimi.base.R
 import com.ooimi.base.pagestatus.MultiState
 import com.ooimi.base.pagestatus.MultiStateContainer
@@ -21,15 +22,22 @@ class LoadingState : MultiState() {
         inflater: LayoutInflater,
         container: MultiStateContainer
     ): View {
-        return inflater.inflate(R.layout.mult_state_loading, container, false)
+        return inflater.inflate(
+            BaseLibrary.config?.pageStatusModelImp?.getLoadingStateRes()
+                ?: R.layout.mult_state_loading, container, false
+        )
     }
 
     override fun onMultiStateViewCreate(view: View) {
-        tvLoadingMsg = view.findViewById(R.id.tv_loading_msg)
-        setLoadingMsg(MultiStatePage.config.loadingMsg)
+        if (BaseLibrary.config?.pageStatusModelImp != null) {
+            BaseLibrary.config?.pageStatusModelImp?.initLoadingStateView(view, MultiStatePage.config)
+        } else {
+            tvLoadingMsg = view.findViewById(R.id.tv_loading_msg)
+            setLoadingMsg(MultiStatePage.config.loadingMsg)
+        }
     }
 
-    fun setLoadingMsg(loadingMsg: String) {
+    private fun setLoadingMsg(loadingMsg: String) {
         tvLoadingMsg.text = loadingMsg
     }
 }
