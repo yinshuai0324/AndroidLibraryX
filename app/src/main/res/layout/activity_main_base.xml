@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/dp_10"
+    tools:context=".ui.base.MainBaseActivity">
+
+    <com.ooimi.widget.button.AppButton
+        android:id="@+id/showLoading"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:background="@color/color_45B97C"
+        android:text="显示Loading"
+        android:textColor="@color/white"
+        app:radius="@dimen/dp_10" />
+
+    <com.ooimi.widget.button.AppButton
+        android:id="@+id/dismissLoading"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginTop="@dimen/dp_8"
+        android:background="@color/color_45B97C"
+        android:text="关闭Loading"
+        android:textColor="@color/white"
+        app:radius="@dimen/dp_10" />
+</LinearLayout>

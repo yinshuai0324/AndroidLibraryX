@@ -1,7 +1,7 @@
 package com.ooimi.base
 
-import com.ooimi.base.imp.LoadingModelImp
-import com.ooimi.base.imp.ToastModelImp
+import com.ooimi.base.imp.BaseLoadingModel
+import com.ooimi.base.imp.BaseToastModel
 
 /**
  * @类作用描述:Base框架参数配置
@@ -12,20 +12,20 @@ class BaseLibraryBuilder {
     /**
      * ActivityLoading 弹窗样式自定义
      */
-    internal var loadingModelImp: LoadingModelImp? = null
+    internal var loadingModelImp: BaseLoadingModel? = null
 
     /**
      * ActivityToast 样式自定义
      */
-    internal var toastModelImp: ToastModelImp? = null
+    internal var toastModelImp: BaseToastModel? = null
 
 
-    fun setLoadingModelImp(imp: LoadingModelImp): BaseLibraryBuilder {
+    fun setLoadingImp(imp: BaseLoadingModel): BaseLibraryBuilder {
         this.loadingModelImp = imp
         return this
     }
 
-    fun setToastModelImp(imp: ToastModelImp): BaseLibraryBuilder {
+    fun setToastImp(imp: BaseToastModel): BaseLibraryBuilder {
         this.toastModelImp = imp
         return this
     }

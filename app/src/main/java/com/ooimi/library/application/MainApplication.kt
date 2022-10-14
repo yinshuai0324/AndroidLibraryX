@@ -3,6 +3,7 @@ package com.ooimi.library.application
 import android.app.Application
 import com.ooimi.base.BaseLibraryBuilder
 import com.ooimi.library.network.MainRequestResultHandler
+import com.ooimi.library.ui.base.imp.LoadingModel
 import com.ooimi.network.NetworkLibrary
 import com.ooimi.network.NetworkLibraryBuilder
 
@@ -18,6 +19,7 @@ class MainApplication : Application() {
     }
 
     private fun initNetwork() {
+        //网络模块
         NetworkLibraryBuilder()
             .addBaseUrl(NetworkLibrary.KEY_DEFAULT_HOST, "https://www.baidu.com")
             .setOpenLog(true)
@@ -25,6 +27,9 @@ class MainApplication : Application() {
             .setLogcatTag("OkHttp")
             .setRequestResultHandler(MainRequestResultHandler())
             .init()
-        BaseLibraryBuilder().init()
+        //Base模块
+        BaseLibraryBuilder()
+            .setLoadingImp(LoadingModel())
+            .init()
     }
 }

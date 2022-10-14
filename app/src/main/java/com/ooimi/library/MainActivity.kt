@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ooimi.library.adapter.HomeAdapter
 import com.ooimi.library.databinding.ActivityMainBinding
 import com.ooimi.library.ui.WidgetActivity
+import com.ooimi.library.ui.base.MainBaseActivity
 
 class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() {
     private var adapter: HomeAdapter? = null
@@ -14,6 +15,7 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() 
         initRecyclerView()
         adapter?.addData("控件模块")
         adapter?.addData("网络请求")
+        adapter?.addData("Base模块")
     }
 
     override fun createdObserve() {
@@ -31,6 +33,9 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() 
                 }
                 "网络请求" -> {
 
+                }
+                "Base模块" -> {
+                    startActivity(Intent(this, MainBaseActivity::class.java))
                 }
             }
         }

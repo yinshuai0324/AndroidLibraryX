@@ -3,11 +3,11 @@ package com.ooimi.base.imp
 import android.view.View
 
 /**
- * @接口作用描述:
+ * @接口作用描述:自定义Activity、Fragment Loading弹窗
  * @作者: 尹帅
  * @创建时间: 2022-10-13 20:00
  */
-interface LoadingModelImp {
+interface BaseLoadingModel {
     /**
      * 加载框的布局文件
      */
@@ -16,7 +16,7 @@ interface LoadingModelImp {
     /**
      * 初始化数据
      */
-    fun initialize(view: View, msg: String)
+    fun initialize(rootView: View, msg: String)
 
     /**
      * 是否按返回键可以关闭
