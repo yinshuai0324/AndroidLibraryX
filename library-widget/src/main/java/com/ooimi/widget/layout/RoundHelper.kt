@@ -226,7 +226,8 @@ class RoundHelper constructor(val isViewGroup: Boolean) {
      */
     fun onDrawBefore(canvas: Canvas) {
         if (!isViewGroup) {
-            drawBackground(canvas)
+            canvas.clipPath(roundDrawPath)
+            canvas.drawColor(tempBackgroundColor)
         }
     }
 
@@ -238,7 +239,8 @@ class RoundHelper constructor(val isViewGroup: Boolean) {
         canvas.clipPath(roundDrawPath)
         if (isViewGroup) {
             canvas.drawColor(tempBackgroundColor)
-        } else {
+        }
+        if (!isViewGroup) {
             drawBorder(canvas)
         }
     }

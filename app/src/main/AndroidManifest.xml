@@ -20,6 +20,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.DynamicSettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.DebugActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.base.MainBaseActivity"
             android:exported="false" />
         <activity

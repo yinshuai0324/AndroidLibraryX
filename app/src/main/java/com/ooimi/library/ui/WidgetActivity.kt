@@ -19,6 +19,7 @@ class WidgetActivity : BaseActivity<BaseViewModel,ActivityWidgetBinding>() {
         adapter?.addData("图片控件")
         adapter?.addData("按钮控件")
         adapter?.addData("容器控件")
+        adapter?.addData("动态设置")
     }
 
     override fun createdObserve() {
@@ -40,6 +41,9 @@ class WidgetActivity : BaseActivity<BaseViewModel,ActivityWidgetBinding>() {
                 }
                 "容器控件" -> {
                     startActivity(Intent(this, LayoutActivity::class.java))
+                }
+                "动态设置"->{
+                    DynamicSettingActivity.jump(this)
                 }
             }
         }

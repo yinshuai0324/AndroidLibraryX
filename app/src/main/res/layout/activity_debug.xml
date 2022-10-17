@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".ui.DebugActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_20"
+        android:background="@color/color_FFBBFF"
+        android:gravity="center"
+        android:text="按钮" />
+
+    <com.ooimi.widget.button.AppButton
+        android:id="@+id/appButton"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_8"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:text="测试按钮" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/color_FFBBFF"
+        android:gravity="center"
+        android:text="图片" />
+
+    <com.ooimi.widget.image.RoundImageView
+        android:id="@+id/roundImageView"
+        android:layout_width="@dimen/dp_50"
+        android:layout_height="@dimen/dp_50"
+        android:layout_marginTop="@dimen/dp_10"
+        android:src="@mipmap/test" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/color_FFBBFF"
+        android:gravity="center"
+        android:text="容器" />
+
+    <com.ooimi.widget.layout.RoundLinearLayout
+        android:id="@+id/roundLayout"
+        android:layout_width="@dimen/dp_50"
+        android:layout_height="@dimen/dp_50"
+        android:layout_marginTop="@dimen/dp_10">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/test" />
+
+    </com.ooimi.widget.layout.RoundLinearLayout>
+
+
+    <Button
+        android:id="@+id/setBg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_30"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:onClick="debugClick"
+        android:text="设置背景" />
+
+    <Button
+        android:id="@+id/setRound"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:onClick="debugClick"
+        android:text="设置圆角" />
+
+    <Button
+        android:id="@+id/setBorder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="debugClick"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:text="设置边框" />
+
+</LinearLayout>
