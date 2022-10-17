@@ -90,6 +90,8 @@ class AppButton : AppCompatTextView, RoundLayout, View.OnClickListener {
         )
         clickAnimType = attrs.getInt(R.styleable.AppButton_clickAnimType, 1)
         attrs.recycle()
+        //先设置为透明 后面自己绘制颜色
+        setBackgroundColors(android.R.color.transparent)
         //获取点击时的颜色
         clickColor = helper.getBackgroundColor().toColorAlpha(0.5f)
         //默认字体居中
