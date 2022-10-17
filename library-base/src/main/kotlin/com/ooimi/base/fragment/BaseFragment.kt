@@ -19,6 +19,7 @@ import com.ooimi.base.dialog.LoadingModelDialog
 import com.ooimi.base.expand.getVmClazz
 import com.ooimi.base.utils.inflateBindingWithGeneric
 import com.ooimi.base.viewmodel.BaseViewModel
+import com.zackratos.ultimatebarx.ultimatebarx.java.UltimateBarX
 import com.zackratos.ultimatebarx.ultimatebarx.navigationBar
 import com.zackratos.ultimatebarx.ultimatebarx.statusBar
 import org.greenrobot.eventbus.EventBus
@@ -266,6 +267,18 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewBinding> : Fragment() {
         navigationBar {
             colorRes = color
             light = iconDark
+        }
+    }
+
+    /**
+     * 透明状态栏
+     */
+    fun transparentBar(statusBar: Boolean = false, navigationBar: Boolean = false) {
+        if (statusBar) {
+            UltimateBarX.statusBar(this).transparent().apply()
+        }
+        if (navigationBar) {
+            UltimateBarX.navigationBar(this).transparent().apply()
         }
     }
 
