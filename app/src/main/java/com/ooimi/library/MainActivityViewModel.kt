@@ -3,9 +3,7 @@ package com.ooimi.library
 import android.text.TextUtils
 import com.ooimi.base.viewmodel.BaseViewModel
 import com.ooimi.library.network.api.MainApiService
-import com.ooimi.network.dsl.TestClass
 import com.ooimi.network.expand.*
-import com.ooimi.network.request.ApiRequest
 
 /**
  * @类作用描述:

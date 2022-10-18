@@ -25,9 +25,9 @@ class NetworkRequestDsl<T> {
         private set
     internal var onHideLoading: (() -> Unit)? = null
         private set
-    internal var onCustomHandler: ((T?) -> Any)? = null
+    internal var onCustomHandler: ((T?) -> Any?)? = null
         private set
-    internal var onCustomHandlerComplete: ((Any) -> Unit)? = null
+    internal var onCustomHandlerComplete: ((Any?) -> Unit)? = null
         private set
 
     /**
@@ -82,11 +82,11 @@ class NetworkRequestDsl<T> {
         this.onFailed = block
     }
 
-    fun onCustomHandler(block: ((T?) -> Any)) {
+    fun onCustomHandler(block: ((T?) -> Any?)) {
         this.onCustomHandler = block
     }
 
-    fun onCustomHandlerComplete(block: ((Any) -> Unit)) {
+    fun onCustomHandlerComplete(block: ((Any?) -> Unit)) {
         this.onCustomHandlerComplete = block
     }
 
