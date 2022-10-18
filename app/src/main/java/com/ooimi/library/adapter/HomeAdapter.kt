@@ -14,6 +14,7 @@ import com.ooimi.widget.button.AppButton
 class HomeAdapter : BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_home) {
     override fun convert(holder: BaseViewHolder, item: String) {
         val appButton = holder.getView<AppButton>(R.id.name)
+        appButton.isClickable = false
         holder.setText(R.id.name, item)
         appButton.setRadius(10f.dp)
         appButton.setBackgroundColors(R.color.color_45B97C)

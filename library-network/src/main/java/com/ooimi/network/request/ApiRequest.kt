@@ -3,7 +3,9 @@ package com.ooimi.network.request
 import com.ooimi.network.NetworkLibrary
 import com.ooimi.network.code.HttpCode
 import com.ooimi.network.dsl.NetworkRequestDsl
+import com.ooimi.network.exception.ApiRequestException
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.*
 import java.net.ConnectException
 import java.net.UnknownHostException
 
@@ -67,67 +69,82 @@ object ApiRequest {
         scope: CoroutineScope,
         dsl: NetworkRequestDsl<T>.() -> Unit
     ) {
-        val retrofitCoroutine = NetworkRequestDsl<T>()
-        retrofitCoroutine.dsl()
-        //显示加载框
-        retrofitCoroutine.onLoading?.invoke()
-        retrofitCoroutine.api.let {
-            try {
-                val response = withContext(scope.coroutineContext + Dispatchers.IO) { it?.invoke() }
-                response?.let {
-                    //存一下服务端返回的描述
-                    retrofitCoroutine.message = it.getRequestMessage()
-                    //请求完成回调
-                    retrofitCoroutine.onComplete?.invoke()
-                    //处理状态码
-                    if (it.getRequestCodeAsString() == config.requestSucceedCode) {
-                        //对数据进行返回前的处理 子线程
-                        val data = if (retrofitCoroutine.onBeforeHandler != null) {
-                            retrofitCoroutine.onBeforeHandler?.invoke(it.getRequestData())
-                        } else {
-                            it.getRequestData()
-                        }
-                        //请求成功
-                        if (data != null) {
-                            //请求成功 但是data不为空
-                            retrofitCoroutine.onSuccess?.invoke(data)
-                        } else {
-                            //请求成功 但是data为空
-                            retrofitCoroutine.onSuccessEmpty?.invoke()
-                        }
-                        //请求成功 data是不是为空需要自己判断
-                        retrofitCoroutine.onSuccessEmptyData?.invoke(data)
+        val requestDsl = NetworkRequestDsl<T>()
+        requestDsl.dsl()
+
+        flow {
+            //请求数据 子线程
+            val response = requestDsl.api?.invoke()
+            response?.let {
+                //存一下服务端返回的描述
+                requestDsl.message = it.getRequestMessage()
+                //处理数据
+                if (it.getRequestCodeAsString() == config.requestSucceedCode) {
+                    //对数据进行返回前的处理 子线程
+                    val data = if (requestDsl.onBeforeHandler != null) {
+                        requestDsl.onBeforeHandler?.invoke(it.getRequestData())
                     } else {
-                        //请求失败
-                        retrofitCoroutine.onFailed?.invoke(
-                            it.getRequestMessage(),
-                            it.getRequestCodeAsInt()
-                        )
+                        it.getRequestData()
                     }
+                    //检查是否自定义处理
+                    if (requestDsl.onCustomHandler != null && requestDsl.onCustomHandlerComplete != null) {
+                        val customHandlerResult = requestDsl.onCustomHandler?.invoke(data)
+                        //回掉自定义处理结果
+                        customHandlerResult?.let {
+                            launchUi(scope) {
+                                requestDsl.onCustomHandlerComplete?.invoke(it)
+                            }
+                        }
+                    }
+                    emit(data)
+                } else {
+                    //请求失败
+                    throw ApiRequestException(it.getRequestCodeAsInt(), it.getRequestMessage())
+                }
+                //回掉整个请求结果
+                launchUi(scope) {
                     //处理请求结果
-                    config.requestResultHandler?.onData(it, retrofitCoroutine.isShowToast)
-                }
-            } catch (e: UnknownHostException) {
-                launchUi(scope) {
-                    retrofitCoroutine.onFailed?.invoke("网络异常，请检查网络", HttpCode.HTTP_CODE_FAILURE)
-                }
-            } catch (e: ConnectException) {
-                launchUi(scope) {
-                    retrofitCoroutine.onFailed?.invoke("网络不稳定，请检查网络", HttpCode.HTTP_CODE_FAILURE)
-                }
-            } catch (e: Exception) {
-                launchUi(scope) {
-                    retrofitCoroutine.onFailed?.invoke(
-                        "请求失败:${e.message}",
-                        HttpCode.HTTP_CODE_FAILURE
-                    )
-                }
-            } finally {
-                launchUi(scope) {
-                    retrofitCoroutine.onHideLoading?.invoke()
+                    config.requestResultHandler?.onData(it, requestDsl.isShowToast)
                 }
             }
-        }
+        }.flowOn(Dispatchers.IO).onStart {
+            //显示加载框 ui线程
+            requestDsl.onLoading?.invoke()
+        }.onCompletion {
+            //请求完成回调 ui线程
+            requestDsl.onComplete?.invoke()
+            requestDsl.onHideLoading?.invoke()
+        }.onEach {
+            //请求成功 ui线程
+            if (it != null) {
+                //请求成功 但是data不为空
+                requestDsl.onSuccess?.invoke(it)
+            } else {
+                //请求成功 但是data为空
+                requestDsl.onSuccessEmpty?.invoke()
+            }
+            //请求成功 data是不是为空需要自己判断
+            requestDsl.onSuccessEmptyData?.invoke(it)
+        }.onEmpty {
+            //请求没有任何数据 ui线程 没有实际的应用场景 暂时不处理
+        }.catch { exception ->
+            //发生异常时回掉 ui线程
+            when (exception) {
+                is ApiRequestException -> {
+                    requestDsl.onFailed?.invoke(exception.msg, exception.code)
+                }
+                is UnknownHostException -> {
+                    requestDsl.onFailed?.invoke("网络异常，请检查网络", HttpCode.HTTP_CODE_FAILURE)
+                }
+                is ConnectException -> {
+                    requestDsl.onFailed?.invoke("网络异常，请检查网络", HttpCode.HTTP_CODE_FAILURE)
+                }
+                else -> requestDsl.onFailed?.invoke(
+                    "请求失败:${exception.message}",
+                    HttpCode.HTTP_CODE_FAILURE
+                )
+            }
+        }.flowOn(Dispatchers.Main).launchIn(scope)
     }
 
     private fun launchUi(scope: CoroutineScope, block: () -> Unit) {

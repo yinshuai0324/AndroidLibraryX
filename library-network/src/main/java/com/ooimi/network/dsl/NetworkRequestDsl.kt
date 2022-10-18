@@ -7,7 +7,6 @@ import com.ooimi.network.data.ResponseBean
  * 网络请求的DSL
  */
 class NetworkRequestDsl<T> {
-
     var api: (suspend () -> ResponseBean<T>)? = null
 
     internal var onLoading: (() -> Unit)? = null
@@ -26,7 +25,10 @@ class NetworkRequestDsl<T> {
         private set
     internal var onHideLoading: (() -> Unit)? = null
         private set
-
+    internal var onCustomHandler: ((T?) -> Any)? = null
+        private set
+    internal var onCustomHandlerComplete: ((Any) -> Unit)? = null
+        private set
 
     /**
      * 基础数据
@@ -44,6 +46,8 @@ class NetworkRequestDsl<T> {
         onLoading = null
         onSuccessEmpty = null
         onHideLoading = null
+        onCustomHandler = null
+        onCustomHandlerComplete = null
     }
 
     fun onLoading(block: () -> Unit) {
@@ -77,5 +81,14 @@ class NetworkRequestDsl<T> {
     fun onFailed(block: (errorMsg: String?, code: Int?) -> Unit) {
         this.onFailed = block
     }
+
+    fun onCustomHandler(block: ((T?) -> Any)) {
+        this.onCustomHandler = block
+    }
+
+    fun onCustomHandlerComplete(block: ((Any) -> Unit)) {
+        this.onCustomHandlerComplete = block
+    }
+
 
 }

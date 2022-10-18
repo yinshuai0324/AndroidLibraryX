@@ -3,10 +3,9 @@ package com.ooimi.library
 import android.text.TextUtils
 import com.ooimi.base.viewmodel.BaseViewModel
 import com.ooimi.library.network.api.MainApiService
-import com.ooimi.network.expand.apiRequestAwait
-import com.ooimi.network.expand.getDefaultApiService
-import com.ooimi.network.expand.safeApiRequest
-import com.ooimi.network.expand.safeLaunch
+import com.ooimi.network.dsl.TestClass
+import com.ooimi.network.expand.*
+import com.ooimi.network.request.ApiRequest
 
 /**
  * @类作用描述:
@@ -20,7 +19,7 @@ class MainActivityViewModel : BaseViewModel() {
         safeLaunch {
             val data = apiRequestAwait { apiService.test() }
         }
-        safeApiRequest<String> {
+        safeApiRequest {
             api = { apiService.test() }
             onBeforeHandler {
                 var newData = ""
@@ -32,6 +31,12 @@ class MainActivityViewModel : BaseViewModel() {
                 newData
             }
             onSuccess {
+
+            }
+            onCustomHandler {
+                return@onCustomHandler "1"
+            }
+            onCustomHandlerComplete {
 
             }
             onFailed { errorMsg, code ->
