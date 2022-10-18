@@ -55,6 +55,7 @@
             app:url="http://c-ssl.duitang.com/uploads/blog/202008/23/20200823085242_b4a75.thumb.1000_0.jpg" />
 
         <com.ooimi.widget.image.NetworkRoundImageView
+            android:id="@+id/roundImageView"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginTop="8dp"

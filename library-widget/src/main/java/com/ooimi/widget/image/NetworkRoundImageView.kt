@@ -7,7 +7,9 @@ import android.util.AttributeSet
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.GlideException
 import com.ooimi.widget.R
+import com.ooimi.widget.callback.LoadImageCallback
 import com.ooimi.widget.callback.OnLoadingImageListener
+import java.lang.Exception
 
 /**
  * 创建者：yinshuai
@@ -15,16 +17,19 @@ import com.ooimi.widget.callback.OnLoadingImageListener
  * 作用描述：网络图片
  */
 
-class NetworkRoundImageView : RoundImageView {
+class NetworkRoundImageView : RoundImageView, LoadImageCallback {
     private var imageUrl: String = ""
     private var loadingRes: Int = 0
     private var errorRes: Int = 0
     private var loadCallback: Boolean = false
+    private var loadAnim: Boolean = false
 
     /**
      * 图片加载监听
      */
-    lateinit var onLoaderListener: (isSucceed: Boolean) -> Unit
+    private var onLoaderListener: LoadImageCallback? = null
+
+    private var helper = LoadImageHelper(this)
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attributeSet: AttributeSet?) : super(context, attributeSet) {
@@ -33,48 +38,45 @@ class NetworkRoundImageView : RoundImageView {
         loadingRes = attrs.getResourceId(R.styleable.NetworkImageView_loadingRes, 0)
         errorRes = attrs.getResourceId(R.styleable.NetworkImageView_errorRes, 0)
         loadCallback = attrs.getBoolean(R.styleable.NetworkImageView_loadCallback, false)
+        loadAnim = attrs.getBoolean(R.styleable.NetworkImageView_loadAnim, false)
         attrs.recycle()
-        this.setImageResource(loadingRes)
-        //加载图片
-        load(imageUrl)
+        if (isInEditMode) {
+            setImageResource(loadingRes)
+        } else {
+            //加载图片
+            load(imageUrl)
+        }
     }
-
 
     /**
      * 加载图片
      */
     fun load(url: String?) {
-        if (!TextUtils.isEmpty(url)) {
-            this.imageUrl = url ?: ""
-            loadImage()
-        }
+        helper.load(url, loadingRes, errorRes, loadAnim, this)
     }
 
     /**
      * 加载默认的图片
      */
     fun loadDefault() {
-        Glide.with(this).load(loadingRes).into(this)
+        helper.loadDefault(loadingRes)
     }
 
     /**
-     * 加载图片 入队
+     * 设置加载图片监听
      */
-    private fun loadImage() {
-        Glide.with(this).load(imageUrl).placeholder(loadingRes)
-            .error(errorRes).listener(object : OnLoadingImageListener() {
-                override fun onLoadImageSucceed(drawable: Drawable?) {
-                    if (::onLoaderListener.isInitialized) {
-                        onLoaderListener.invoke(true)
-                    }
-                }
+    fun setOnImageLoadListener(listener: LoadImageCallback) {
+        this.onLoaderListener = listener
+    }
 
-                override fun onLoadImageFailed(exception: GlideException?) {
-                    if (::onLoaderListener.isInitialized) {
-                        onLoaderListener.invoke(false)
-                    }
-                }
-            })
-            .into(this)
+
+    override fun onLoadSucceed() {
+        //回掉给外部处理
+        onLoaderListener?.onLoadSucceed()
+    }
+
+    override fun onLoadFailure(exception: Exception?, url: String?) {
+        //回掉给外部处理
+        onLoaderListener?.onLoadFailure(exception, url)
     }
 }

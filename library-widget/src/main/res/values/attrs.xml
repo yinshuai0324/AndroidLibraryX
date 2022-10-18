@@ -31,6 +31,8 @@
     <attr name="errorRes" format="reference" />
     <!--是否有加载回调-->
     <attr name="loadCallback" format="boolean" />
+    <!--是否开启图片加载动画-->
+    <attr name="loadAnim" format="boolean" />
 
     <!--网络图片-->
     <declare-styleable name="NetworkImageView">
@@ -38,6 +40,7 @@
         <attr name="loadingRes" />
         <attr name="errorRes" />
         <attr name="loadCallback" />
+        <attr name="loadAnim" />
     </declare-styleable>
 
 
@@ -47,6 +50,7 @@
         <attr name="loadingRes" />
         <attr name="errorRes" />
         <attr name="loadCallback" />
+        <attr name="loadAnim" />
     </declare-styleable>
 
 
