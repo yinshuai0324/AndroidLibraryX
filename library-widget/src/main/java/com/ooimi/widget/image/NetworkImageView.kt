@@ -29,6 +29,7 @@ class NetworkImageView : BaseImageView, LoadImageCallback {
     private var errorRes: Int = 0
     private var loadCallback: Boolean = false
     private var loadAnim: Boolean = false
+    private var animDuration: Int = 300
 
     private var helper = LoadImageHelper(this)
 
@@ -45,6 +46,7 @@ class NetworkImageView : BaseImageView, LoadImageCallback {
         errorRes = attrs.getResourceId(R.styleable.NetworkImageView_errorRes, 0)
         loadCallback = attrs.getBoolean(R.styleable.NetworkImageView_loadCallback, false)
         loadAnim = attrs.getBoolean(R.styleable.NetworkImageView_loadAnim, false)
+        animDuration = attrs.getInteger(R.styleable.NetworkImageView_animDuration, 300)
         this.setImageResource(loadingRes)
         attrs.recycle()
 
@@ -60,7 +62,7 @@ class NetworkImageView : BaseImageView, LoadImageCallback {
      * 加载图片
      */
     fun load(url: String?) {
-        helper.load(url, loadingRes, errorRes, loadAnim, this)
+        helper.load(url, loadingRes, errorRes, animDuration, loadAnim, this)
     }
 
     /**

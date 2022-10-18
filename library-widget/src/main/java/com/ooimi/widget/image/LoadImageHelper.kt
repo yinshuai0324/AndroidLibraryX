@@ -5,9 +5,12 @@ import android.text.TextUtils
 import android.util.Log
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.TransitionOptions
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
+import com.bumptech.glide.request.transition.NoTransition
 import com.ooimi.widget.WidgetLibrary
 import com.ooimi.widget.callback.LoadImageCallback
 import com.ooimi.widget.callback.OnLoadingImageListener
@@ -27,6 +30,7 @@ class LoadImageHelper constructor(val view: ImageView) {
         url: String?,
         loadingRes: Int,
         errorRes: Int,
+        animDuration: Int,
         loadAnim: Boolean,
         callback: LoadImageCallback
     ) {
@@ -48,8 +52,8 @@ class LoadImageHelper constructor(val view: ImageView) {
             )
         } else {
             //否则 使用自身的默认加载
-            val factory = DrawableCrossFadeFactory.Builder().setCrossFadeEnabled(loadAnim).build()
-            Glide.with(view).load(imageUrl).placeholder(loadingRes)
+
+            val build = Glide.with(view).load(imageUrl).placeholder(loadingRes)
                 .error(errorRes).listener(object : OnLoadingImageListener() {
                     override fun onLoadImageSucceed(drawable: Drawable?) {
                         Log.i("===>>>", "load image succeed:${imageUrl}")
@@ -61,8 +65,14 @@ class LoadImageHelper constructor(val view: ImageView) {
                         callback.onLoadFailure(exception, imageUrl)
                     }
                 })
-                .transition(DrawableTransitionOptions.withCrossFade(factory))
-                .into(view)
+            if (loadAnim) {
+                val factory =
+                    DrawableCrossFadeFactory.Builder(animDuration).setCrossFadeEnabled(loadAnim)
+                        .build()
+                build.transition(withCrossFade(factory)).into(view)
+            } else {
+                build.into(view)
+            }
         }
     }
 
