@@ -34,4 +34,12 @@ ext {
     lib_eventbusAnnotation = "org.greenrobot:eventbus-annotation-processor:3.1.1"
     //utils
     lib_utilcodex = "com.blankj:utilcodex:1.30.6"
+    //datastore
+    lib_datastore =  "androidx.datastore:datastore:1.0.0"
+    //datastore_preferences
+    lib_datastore_preferences =  "androidx.datastore:datastore-preferences:1.0.0"
+    //datastore_preferences_rxjava3
+    lib_datastore_preferences_rxjava3 =  "androidx.datastore:datastore-preferences-rxjava3:1.0.0"
+    //mmkv
+    lib_mmkv = "com.tencent:mmkv:1.2.14"
 }
