@@ -78,6 +78,11 @@ object ApiRequest {
             response?.let {
                 //存一下服务端返回的描述
                 requestDsl.message = it.getRequestMessage()
+                //回掉整个请求结果
+                launchUi(scope) {
+                    //处理请求结果
+                    config.requestResultHandler?.onData(it, requestDsl.isShowToast)
+                }
                 //处理数据
                 if (it.getRequestCodeAsString() == config.requestSucceedCode) {
                     //对数据进行返回前的处理 子线程
@@ -100,11 +105,6 @@ object ApiRequest {
                 } else {
                     //请求失败
                     throw ApiRequestException(it.getRequestCodeAsInt(), it.getRequestMessage())
-                }
-                //回掉整个请求结果
-                launchUi(scope) {
-                    //处理请求结果
-                    config.requestResultHandler?.onData(it, requestDsl.isShowToast)
                 }
             }
         }.flowOn(Dispatchers.IO).onStart {
