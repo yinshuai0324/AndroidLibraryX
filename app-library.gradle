@@ -42,4 +42,5 @@ ext {
     lib_datastore_preferences_rxjava3 =  "androidx.datastore:datastore-preferences-rxjava3:1.0.0"
     //mmkv
     lib_mmkv = "com.tencent:mmkv:1.2.14"
+    lib_ok2curl = "com.github.mrmike:ok2curl:0.8.0"
 }

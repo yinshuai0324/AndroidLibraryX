@@ -15,6 +15,11 @@ class NetworkLibraryBuilder {
     internal var isOpenLog: Boolean = true
 
     /**
+     * 是否开启Curl打印
+     */
+    internal var isOpenCurlLog: Boolean = false
+
+    /**
      * 拦截器
      */
     internal val interceptors: ArrayList<Interceptor> = arrayListOf()
@@ -59,8 +64,18 @@ class NetworkLibraryBuilder {
      */
     internal var logcatTag: String = "OkHttp"
 
+    /**
+     * Curl日志Tag
+     */
+    internal var curlLogcatTag: String = "Curl"
+
     fun setOpenLog(isOpen: Boolean): NetworkLibraryBuilder {
         this.isOpenLog = isOpen
+        return this
+    }
+
+    fun setOpenCurlLog(isOpen: Boolean): NetworkLibraryBuilder {
+        this.isOpenCurlLog = isOpen
         return this
     }
 
@@ -106,6 +121,11 @@ class NetworkLibraryBuilder {
 
     fun setLogcatTag(tag: String): NetworkLibraryBuilder {
         this.logcatTag = tag
+        return this
+    }
+
+    fun setCurlLogcatTag(tag: String): NetworkLibraryBuilder {
+        this.curlLogcatTag = tag
         return this
     }
 

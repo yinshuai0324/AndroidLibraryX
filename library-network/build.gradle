@@ -33,4 +33,5 @@ dependencies {
     implementation rootProject.ext.lib_retrofit_logging_interceptor
     implementation rootProject.ext.lib_coroutines
     implementation rootProject.ext.lib_viewmodel_ktx
+    implementation rootProject.ext.lib_ok2curl
 }

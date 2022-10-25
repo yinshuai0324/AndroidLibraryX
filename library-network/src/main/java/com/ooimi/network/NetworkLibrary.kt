@@ -4,6 +4,8 @@ import android.util.Log
 import android.util.Log.VERBOSE
 import com.ihsanbal.logging.Level
 import com.ihsanbal.logging.LoggingInterceptor
+import com.moczul.ok2curl.CurlInterceptor
+import com.moczul.ok2curl.logger.Logger
 import com.ooimi.network.ssl.SSLManager
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -50,18 +52,29 @@ object NetworkLibrary {
         config.interceptors.forEach {
             okHttpClientBuilder.addInterceptor(it)
         }
+        //是否开启Curl打印
+        if (config.isOpenCurlLog) {
+            //curl
+            val curlInterceptor = CurlInterceptor(object : Logger {
+                override fun log(message: String) {
+                    Log.i(config.curlLogcatTag, message)
+                }
+            })
+            okHttpClientBuilder.addInterceptor(curlInterceptor)
+        }
         //是否开启日志打印
         if (config.isOpenLog) {
             val logInterceptor = LoggingInterceptor.Builder()
                 .setLevel(Level.BASIC)
                 .log(VERBOSE)
-                .tag("OkHttp")
+                .tag(config.logcatTag)
                 .build()
             okHttpClientBuilder.addInterceptor(logInterceptor)
         } else {
             //不走系统代理
             okHttpClientBuilder.proxy(Proxy.NO_PROXY)
         }
+
         //配置连接超时时间
         okHttpClientBuilder.connectTimeout(config.connectTimeout, TimeUnit.MILLISECONDS)
         //读取超时时间
