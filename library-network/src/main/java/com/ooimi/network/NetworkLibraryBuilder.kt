@@ -25,6 +25,11 @@ class NetworkLibraryBuilder {
     internal val interceptors: ArrayList<Interceptor> = arrayListOf()
 
     /**
+     * 网络拦截器
+     */
+    internal val networkInterceptors: ArrayList<Interceptor> = arrayListOf()
+
+    /**
      * 是否支持Https
      */
     internal var isSupportHttps: Boolean = true
@@ -81,6 +86,11 @@ class NetworkLibraryBuilder {
 
     fun addInterceptor(interceptor: Interceptor): NetworkLibraryBuilder {
         interceptors.add(interceptor)
+        return this
+    }
+
+    fun addNetworkInterceptor(interceptor: Interceptor): NetworkLibraryBuilder {
+        networkInterceptors.add(interceptor)
         return this
     }
 

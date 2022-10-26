@@ -52,6 +52,10 @@ object NetworkLibrary {
         config.interceptors.forEach {
             okHttpClientBuilder.addInterceptor(it)
         }
+        //设置网络拦截器
+        config.networkInterceptors.forEach {
+            okHttpClientBuilder.addNetworkInterceptor(it)
+        }
         //是否开启Curl打印
         if (config.isOpenCurlLog) {
             //curl
