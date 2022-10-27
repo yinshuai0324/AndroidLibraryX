@@ -37,7 +37,7 @@ dependencies {
     implementation rootProject.ext.lib_appcompat
     api rootProject.ext.lib_coroutines
     api rootProject.ext.lib_viewmodel_ktx
-    implementation rootProject.ext.lib_ultimatebarx
+    api rootProject.ext.lib_ultimatebarx
     implementation rootProject.ext.lib_utilcodex
     implementation rootProject.ext.lib_eventbus
 }
