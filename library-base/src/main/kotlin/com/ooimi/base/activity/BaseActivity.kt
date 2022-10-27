@@ -1,6 +1,7 @@
 package com.ooimi.base.activity
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -61,6 +62,10 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : AppCompatAct
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        if (onIsLockVerticalScreen()) {
+            //锁定为竖屏
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        }
         super.onCreate(savedInstanceState)
         //获取当前ViewBinding
         viewBinding = inflateBindingWithGeneric(layoutInflater)
@@ -233,6 +238,13 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : AppCompatAct
      */
     open fun onRefreshPageData() {
 
+    }
+
+    /**
+     * 是否锁定竖屏
+     */
+    open fun onIsLockVerticalScreen(): Boolean {
+        return true
     }
 
 
