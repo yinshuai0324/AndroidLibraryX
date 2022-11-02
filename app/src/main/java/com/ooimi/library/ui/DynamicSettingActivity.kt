@@ -22,7 +22,7 @@ class DynamicSettingActivity : BaseActivity<BaseViewModel, ActivityDynamicSettin
         }
     }
 
-    private val bgBorderColor = R.color.color_45B97C
+    private val bgBorderColor = com.ooimi.widget.R.color.color_45B97C
     override fun initData() {
         addViewClicks(R.id.setBg)
         viewBinding.roundImageView.setBorderColor(bgBorderColor)

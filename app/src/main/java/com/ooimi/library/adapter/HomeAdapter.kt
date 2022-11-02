@@ -17,6 +17,6 @@ class HomeAdapter : BaseQuickAdapter<String, BaseViewHolder>(R.layout.item_home)
         appButton.isClickable = false
         holder.setText(R.id.name, item)
         appButton.setRadius(10f.dp)
-        appButton.setBackgroundColors(R.color.color_45B97C)
+        appButton.setBackgroundColors(R.color.color_FFB90F)
     }
 }

@@ -210,6 +210,8 @@
         <attr name="disableTextColor" />
         <!--点击时的效果-->
         <attr name="clickAnimType" format="enum">
+            <!--没有点击效果-->
+            <enum name="none" value="0" />
             <!--默认效果 有一个打底颜色-->
             <enum name="defaultAnim" value="1" />
             <!--缩放动画-->

@@ -47,7 +47,7 @@ class TestView : AppCompatImageView {
         viewRectF.set(0f, 0f, width.toFloat(), height.toFloat())
         clipPath.addRoundRect(viewRectF, roundArray, Path.Direction.CCW)
         canvas.clipPath(clipPath)
-        canvas.drawColor(ContextCompat.getColor(context, R.color.color_3A5FCD))
+        canvas.drawColor(ContextCompat.getColor(context, com.ooimi.widget.R.color.color_3A5FCD))
         super.onDraw(canvas)
         drawBorder(canvas)
     }
@@ -77,7 +77,7 @@ class TestView : AppCompatImageView {
         borderPath.addRoundRect(borderRectF, roundArray, Path.Direction.CW)
         paint.style = Paint.Style.STROKE
         paint.strokeWidth = 5f.dp
-        paint.color = ContextCompat.getColor(context, R.color.color_EF4136)
+        paint.color = ContextCompat.getColor(context, com.ooimi.widget.R.color.color_EF4136)
         canvas.drawPath(borderPath, paint)
     }
 }
