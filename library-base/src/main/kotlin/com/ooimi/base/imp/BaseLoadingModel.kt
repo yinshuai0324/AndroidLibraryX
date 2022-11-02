@@ -14,9 +14,9 @@ interface BaseLoadingModel {
     fun getLayoutResId(): Int
 
     /**
-     * 初始化数据
+     * 更新UI数据
      */
-    fun initialize(rootView: View, msg: String)
+    fun updateUIData(rootView: View?, msg: String)
 
     /**
      * 是否按返回键可以关闭

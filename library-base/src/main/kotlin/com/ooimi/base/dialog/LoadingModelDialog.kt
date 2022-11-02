@@ -20,8 +20,8 @@ class LoadingModelDialog {
     private val mContext: Context
     private lateinit var dialog: Dialog
     private var message: String = "正在加载中..."
-
     private var loadingModelImp = BaseLibrary.config?.loadingModelImp
+    private var rootView: View? = null
 
     constructor(context: Context) {
         mContext = context
@@ -29,15 +29,15 @@ class LoadingModelDialog {
     }
 
     private fun createLoadingView() {
-        val rootView = if (loadingModelImp != null) {
+        rootView = if (loadingModelImp != null) {
             View.inflate(mContext, loadingModelImp?.getLayoutResId() ?: 0, null)
         } else {
             View.inflate(mContext, R.layout.view_default_loading_widget, null)
         }
         if (loadingModelImp != null) {
-            loadingModelImp?.initialize(rootView, message)
+            loadingModelImp?.updateUIData(rootView, message)
         } else {
-            rootView.findViewById<TextView>(R.id.loadingMsg).text = message
+            rootView?.findViewById<TextView>(R.id.loadingMsg)?.text = message
         }
         dialog = Dialog(mContext, R.style.loading)
         // 是否可以按“返回键”消失
@@ -58,6 +58,11 @@ class LoadingModelDialog {
             this.message = msg ?: ""
         } else {
             this.message = "正在加载中..."
+        }
+        if (loadingModelImp != null) {
+            loadingModelImp?.updateUIData(rootView, message)
+        } else {
+            rootView?.findViewById<TextView>(R.id.loadingMsg)?.text = message
         }
     }
 
