@@ -1,4 +1,4 @@
-package com.ooimi.database
+package com.ooimi.mmkv
 
 import org.junit.Test
 

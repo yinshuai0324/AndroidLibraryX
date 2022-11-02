@@ -5,9 +5,9 @@ task generateSourcesJar(type: Jar) {
     classifier 'sources'
 }
 
-def versionName = "1.0.0"
+def versionName = "1.0.2"
 def groupId_ = "com.ooimi.library"
-def artifactId_ = "database"
+def artifactId_ = "localdata"
 
 afterEvaluate {
     publishing {
@@ -25,8 +25,8 @@ afterEvaluate {
 
                 //pom配置
                 pom {
-                    name = '基础依赖库-数据持久化模块'
-                    description = '这是基础依赖库的数据持久化模块'
+                    name = '基础依赖库-localdata'
+                    description = '这是基础依赖库的数据持久化模块，对MMKV的封装'
                     url = 'https://github.com/yinshuai0324/AndroidLibraryX'
                     //开源协议
                     licenses {

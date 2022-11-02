@@ -43,4 +43,6 @@ ext {
     //mmkv
     lib_mmkv = "com.tencent:mmkv:1.2.14"
     lib_ok2curl = "com.github.mrmike:ok2curl:0.8.0"
+    //GSON
+    lib_gson = "com.google.code.gson:gson:2.9.0"
 }
