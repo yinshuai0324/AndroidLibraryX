@@ -86,6 +86,7 @@
             android:text="禁用效果" />
 
         <com.ooimi.widget.button.AppButton
+            android:id="@+id/disableBtn"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginStart="16dp"
@@ -94,7 +95,7 @@
             android:background="@color/purple_200"
             android:text="禁用效果1"
             app:disable="true"
-            app:disableColor="@color/color_CCCCCC"
+            app:disableEffect="alpha"
             app:radius="20dp" />
 
         <com.ooimi.widget.button.AppButton

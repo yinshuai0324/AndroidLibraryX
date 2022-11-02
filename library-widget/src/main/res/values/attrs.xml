@@ -217,6 +217,13 @@
             <!--缩放动画-->
             <enum name="zoomAnim" value="2" />
         </attr>
+        <!--禁用效果-->
+        <attr name="disableEffect" format="enum">
+            <!--半透明-->
+            <enum name="alpha" value="0" />
+            <!--设置背景颜色-->
+            <enum name="color" value="1" />
+        </attr>
     </declare-styleable>
 
     <!--开关按钮-->

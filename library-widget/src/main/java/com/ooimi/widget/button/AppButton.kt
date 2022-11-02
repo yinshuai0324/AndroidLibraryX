@@ -61,6 +61,11 @@ class AppButton : AppCompatTextView, RoundLayout, View.OnClickListener {
     private var clickAnimType: Int = 1
 
     /**
+     * 禁用效果
+     */
+    private var disableEffect: Int = 0
+
+    /**
      * 文字颜色
      */
     private var mTextColor: Int = 0
@@ -74,6 +79,11 @@ class AppButton : AppCompatTextView, RoundLayout, View.OnClickListener {
      * 按钮禁用的情况下点击事件
      */
     lateinit var onDisableClickEvent: (view: View) -> Unit
+
+    /**
+     * 原生的点击事件
+     */
+    private var nativeOnClickListener: OnClickListener? = null
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attributeSet: AttributeSet?) : super(context, attributeSet) {
@@ -89,6 +99,7 @@ class AppButton : AppCompatTextView, RoundLayout, View.OnClickListener {
             textColors.defaultColor.toColorAlpha(0.5f)
         )
         clickAnimType = attrs.getInt(R.styleable.AppButton_clickAnimType, 1)
+        disableEffect = attrs.getInt(R.styleable.AppButton_disableEffect, 0)
         attrs.recycle()
         //先设置为透明 后面自己绘制颜色
         setBackgroundColors(android.R.color.transparent)
@@ -114,12 +125,6 @@ class AppButton : AppCompatTextView, RoundLayout, View.OnClickListener {
         super.onDraw(canvas)
         helper.onDrawAfter(canvas)
     }
-//
-//    override fun dispatchDraw(canvas: Canvas) {
-//        helper.onDispatchDrawBefore(canvas)
-//        super.dispatchDraw(canvas)
-//        helper.onDispatchDrawAfter(canvas)
-//    }
 
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
@@ -239,8 +244,17 @@ class AppButton : AppCompatTextView, RoundLayout, View.OnClickListener {
      */
     fun setDisable(isDisable: Boolean) {
         this.disable = isDisable
-        helper.setBackgroundColorNotRes(if (disable) disableColor else helper.getBackgroundColor())
-        setTextColor(if (isDisable) disableTextColor else textColors.defaultColor)
+        when (disableEffect) {
+            0 -> {
+                this.alpha = if (disable) 0.5f else 1f
+                helper.setBackgroundColorNotRes(helper.getBackgroundColor())
+                setTextColor(textColors.defaultColor)
+            }
+            1 -> {
+                helper.setBackgroundColorNotRes(if (disable) disableColor else helper.getBackgroundColor())
+                setTextColor(if (isDisable) disableTextColor else textColors.defaultColor)
+            }
+        }
         invalidate()
     }
 
@@ -259,12 +273,18 @@ class AppButton : AppCompatTextView, RoundLayout, View.OnClickListener {
         this.clickAnimType = animType
     }
 
+    override fun setOnClickListener(l: OnClickListener?) {
+        super.setOnClickListener(this)
+        this.nativeOnClickListener = l
+    }
+
     override fun onClick(v: View) {
         if (disable) {
             if (::onDisableClickEvent.isInitialized) {
                 onDisableClickEvent.invoke(this)
             }
         } else {
+            nativeOnClickListener?.onClick(v)
             if (::onEnableClickEvent.isInitialized) {
                 onEnableClickEvent.invoke(this)
             }
