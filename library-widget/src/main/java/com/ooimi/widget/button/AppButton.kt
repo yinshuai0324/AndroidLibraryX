@@ -284,7 +284,9 @@ class AppButton : AppCompatTextView, RoundLayout, View.OnClickListener {
                 onDisableClickEvent.invoke(this)
             }
         } else {
-            nativeOnClickListener?.onClick(v)
+            if (nativeOnClickListener != this) {
+                nativeOnClickListener?.onClick(v)
+            }
             if (::onEnableClickEvent.isInitialized) {
                 onEnableClickEvent.invoke(this)
             }
