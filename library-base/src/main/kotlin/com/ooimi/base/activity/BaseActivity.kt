@@ -217,12 +217,17 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : AppCompatAct
     /**
      * 透明状态栏
      */
-    fun transparentBar(statusBar: Boolean = false, navigationBar: Boolean = false) {
+    fun transparentBar(
+        statusBar: Boolean = false,
+        navigationBar: Boolean = false,
+        statusDark: Boolean = false,
+        navDark: Boolean = false
+    ) {
         if (statusBar) {
-            UltimateBarX.statusBar(this).transparent().apply()
+            UltimateBarX.statusBar(this).light(statusDark).transparent().apply()
         }
         if (navigationBar) {
-            UltimateBarX.navigationBar(this).transparent().apply()
+            UltimateBarX.navigationBar(this).light(navDark).transparent().apply()
         }
     }
 
