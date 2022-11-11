@@ -6,9 +6,9 @@
 ### 依赖列表
 ```
 //通用控件
-implementation 'com.ooimi.library:widget:1.2.1'
+implementation 'com.ooimi.library:widget:1.2.5'
 //网络模块
-implementation 'com.ooimi.library:network:1.1.3'
+implementation 'com.ooimi.library:network:1.1.5'
 //Base模块
-implementation 'com.ooimi.library:base:1.0.7'
+implementation 'com.ooimi.library:base:1.1.0'
 ```
