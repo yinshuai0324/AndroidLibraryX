@@ -28,7 +28,7 @@ ext {
     //网络请求日志打印
     lib_retrofit_logging_interceptor = "com.github.ihsanbal:LoggingInterceptor:3.1.0"
     //状态栏
-    lib_ultimatebarx = "com.gitee.zackratos:UltimateBarX:0.8.0"//EventBus
+    lib_ultimatebarx = "com.gitee.zackratos:UltimateBarX:0.8.0"
     //eventBus
     lib_eventbus = "org.greenrobot:eventbus:3.1.1"
     lib_eventbusAnnotation = "org.greenrobot:eventbus-annotation-processor:3.1.1"

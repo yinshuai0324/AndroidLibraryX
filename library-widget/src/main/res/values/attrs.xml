@@ -226,6 +226,26 @@
         </attr>
     </declare-styleable>
 
+    <!--圆角按钮-->
+    <declare-styleable name="RoundTextView">
+        <!--圆角-->
+        <attr name="radius" />
+        <!--边框颜色-->
+        <attr name="borderColor" />
+        <!--边框宽度-->
+        <attr name="borderWidth" />
+        <!--左上角圆角值-->
+        <attr name="radiusTopLeft" />
+        <!--右上角圆角值-->
+        <attr name="radiusTopRight" />
+        <!--左下角圆角值-->
+        <attr name="radiusBottomLeft" />
+        <!--右下角圆角值-->
+        <attr name="radiusBottomRight" />
+        <!--是否圆形-->
+        <attr name="isCircle" />
+    </declare-styleable>
+
     <!--开关按钮-->
     <declare-styleable name="SwitchButton">
         <!--关按钮图片-->

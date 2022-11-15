@@ -15,9 +15,6 @@ class LoadingModel : BaseLoadingModel {
         return R.layout.view_loading_widget
     }
 
-    override fun initialize(rootView: View, msg: String) {
-        rootView.findViewById<TextView>(R.id.loadingMsg).text = msg
-    }
 
     override fun isCancelableDismiss(): Boolean {
         return true
@@ -25,5 +22,9 @@ class LoadingModel : BaseLoadingModel {
 
     override fun isTouchOutsideDismiss(): Boolean {
         return true
+    }
+
+    override fun updateUIData(rootView: View?, msg: String) {
+        rootView?.findViewById<TextView>(R.id.loadingMsg)?.text = msg
     }
 }
