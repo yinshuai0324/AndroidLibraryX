@@ -25,8 +25,6 @@ class RoundTextView : AppCompatTextView, RoundLayout {
         helper.init(context, attributeSet, this)
         val attrs = context.obtainStyledAttributes(attributeSet, R.styleable.RoundTextView)
         attrs.recycle()
-        //先设置为透明 后面自己绘制颜色
-        setBackgroundColors(android.R.color.transparent)
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
