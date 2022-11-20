@@ -15,6 +15,7 @@ class ResponseBean<T> {
 
     //code
     var code: String? = "0"
+    var status: String? = "0"
 
     //message
     var msg: String? = ""
@@ -46,6 +47,9 @@ class ResponseBean<T> {
         if (!TextUtils.isEmpty(code)) {
             return code ?: ""
         }
+        if (!TextUtils.isEmpty(status)){
+            return status?:""
+        }
         return ""
     }
 
@@ -54,7 +58,13 @@ class ResponseBean<T> {
      */
     fun getRequestCodeAsInt(): Int {
         return try {
-            (code ?: "").toInt()
+            if (!TextUtils.isEmpty(code)) {
+                return (code ?: "0").toInt()
+            }
+            if (!TextUtils.isEmpty(status)){
+                return (status ?: "0").toInt()
+            }
+            return -1
         } catch (e: Exception) {
             e.printStackTrace()
             -1
