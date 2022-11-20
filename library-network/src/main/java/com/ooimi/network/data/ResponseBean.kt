@@ -14,8 +14,8 @@ class ResponseBean<T> {
     var body: T? = null
 
     //code
-    var code: String? = "0"
-    var status: String? = "0"
+    var code: String? = ""
+    var status: String? = ""
 
     //message
     var msg: String? = ""
@@ -50,7 +50,7 @@ class ResponseBean<T> {
         if (!TextUtils.isEmpty(status)){
             return status?:""
         }
-        return ""
+        return "-1"
     }
 
     /**
