@@ -40,4 +40,9 @@ interface RoundLayout {
      * 设置背景颜色
      */
     fun setBackgroundColors(color: Int)
+
+    /**
+     * 设置背景颜色 原始颜色 没有经过转换的
+     */
+    fun setBackgroundColorRaw(color: Int)
 }

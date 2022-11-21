@@ -354,6 +354,14 @@ class RoundHelper constructor(val isViewGroup: Boolean) {
     /**
      * 设置背景颜色
      */
+    fun setBackgroundColorRaw(color: Int) {
+        tempBackgroundColor = color
+        rootView.invalidate()
+    }
+
+    /**
+     * 设置背景颜色
+     */
     fun setBackgroundColorNotRes(color: Int) {
         tempBackgroundColor = color
         rootView.invalidate()

@@ -1,5 +1,6 @@
 package com.ooimi.network.request
 
+import android.util.Log
 import com.ooimi.network.NetworkLibrary
 import com.ooimi.network.code.HttpCode
 import com.ooimi.network.dsl.NetworkRequestDsl
@@ -128,6 +129,9 @@ object ApiRequest {
         }.onEmpty {
             //请求没有任何数据 ui线程 没有实际的应用场景 暂时不处理
         }.catch { exception ->
+            if (NetworkLibrary.getConfig().isOpenLog){
+                exception.printStackTrace()
+            }
             //发生异常时回掉 ui线程
             when (exception) {
                 is ApiRequestException -> {

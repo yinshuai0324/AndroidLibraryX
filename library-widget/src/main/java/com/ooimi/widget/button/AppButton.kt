@@ -292,4 +292,8 @@ class AppButton : AppCompatTextView, RoundLayout, View.OnClickListener {
             }
         }
     }
+
+    override fun setBackgroundColorRaw(color: Int) {
+        helper.setBackgroundColorRaw(color)
+    }
 }

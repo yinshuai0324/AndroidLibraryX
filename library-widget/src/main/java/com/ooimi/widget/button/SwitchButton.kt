@@ -14,6 +14,7 @@ class SwitchButton : LinearLayout, View.OnClickListener {
     private var isOn: Boolean = false
 
     lateinit var onSwitchChangeListener: (isOn: Boolean) -> Unit
+    var onSwitchChangeBeforeListener: (() -> Unit)? = null
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attributeSet: AttributeSet?) : super(context, attributeSet) {
@@ -51,6 +52,7 @@ class SwitchButton : LinearLayout, View.OnClickListener {
     override fun onClick(view: View) {
         when (view.id) {
             R.id.switchIcon -> {
+                onSwitchChangeBeforeListener?.invoke()
                 isOn = !isOn
                 updateUI()
                 if (::onSwitchChangeListener.isInitialized) {
