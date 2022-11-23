@@ -1,13 +1,13 @@
 package com.ooimi.network.dsl
 
-import com.ooimi.network.data.ResponseBean
+import com.ooimi.network.data.BaseResponseBean
 
 
 /**
  * 网络请求的DSL
  */
 class NetworkRequestDsl<T> {
-    var api: (suspend () -> ResponseBean<T>)? = null
+    var api: (suspend () -> BaseResponseBean<T>)? = null
 
     internal var onLoading: (() -> Unit)? = null
         private set

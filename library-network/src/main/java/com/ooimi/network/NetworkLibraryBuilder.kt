@@ -45,11 +45,6 @@ class NetworkLibraryBuilder {
     internal var requestResultHandler: BaseRequestResultHandler? = null
 
     /**
-     * 业务请求成功时的Code
-     */
-    internal var requestSucceedCode: String = "200"
-
-    /**
      * 连接超时时间
      */
     internal var connectTimeout: Long = 3000
@@ -106,11 +101,6 @@ class NetworkLibraryBuilder {
 
     fun setRequestResultHandler(handler: BaseRequestResultHandler?): NetworkLibraryBuilder {
         this.requestResultHandler = handler
-        return this
-    }
-
-    fun setRequestSucceedCode(code: String): NetworkLibraryBuilder {
-        this.requestSucceedCode = code
         return this
     }
 

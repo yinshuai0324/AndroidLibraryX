@@ -1,6 +1,5 @@
 package com.ooimi.network.request
 
-import android.util.Log
 import com.ooimi.network.NetworkLibrary
 import com.ooimi.network.code.HttpCode
 import com.ooimi.network.dsl.NetworkRequestDsl
@@ -78,19 +77,19 @@ object ApiRequest {
             val response = requestDsl.api?.invoke()
             response?.let {
                 //存一下服务端返回的描述
-                requestDsl.message = it.getRequestMessage()
+                requestDsl.message = it.getMessage()
                 //回掉整个请求结果
                 launchUi(scope) {
                     //处理请求结果
                     config.requestResultHandler?.onData(it, requestDsl.isShowToast)
                 }
                 //处理数据
-                if (it.getRequestCodeAsString() == config.requestSucceedCode) {
+                if (it.isSucceed()) {
                     //对数据进行返回前的处理 子线程
                     val data = if (requestDsl.onBeforeHandler != null) {
-                        requestDsl.onBeforeHandler?.invoke(it.getRequestData())
+                        requestDsl.onBeforeHandler?.invoke(it.getBody())
                     } else {
-                        it.getRequestData()
+                        it.getBody()
                     }
                     //检查是否自定义处理
                     if (requestDsl.onCustomHandler != null && requestDsl.onCustomHandlerComplete != null) {
@@ -105,7 +104,7 @@ object ApiRequest {
                     emit(data)
                 } else {
                     //请求失败
-                    throw ApiRequestException(it.getRequestCodeAsInt(), it.getRequestMessage())
+                    throw ApiRequestException(it.getCode(), it.getMessage() ?: "")
                 }
             }
         }.flowOn(Dispatchers.IO).onStart {
@@ -129,9 +128,11 @@ object ApiRequest {
         }.onEmpty {
             //请求没有任何数据 ui线程 没有实际的应用场景 暂时不处理
         }.catch { exception ->
-            if (NetworkLibrary.getConfig().isOpenLog){
+            if (NetworkLibrary.getConfig().isOpenLog) {
                 exception.printStackTrace()
             }
+            //异常时回调
+            config.requestResultHandler?.onException(exception)
             //发生异常时回掉 ui线程
             when (exception) {
                 is ApiRequestException -> {

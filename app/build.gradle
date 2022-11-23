@@ -41,9 +41,9 @@ dependencies {
     implementation rootProject.ext.lib_adapter
     //控件UI
     implementation project(":library-widget")
-//    implementation project(":library-base")
+    implementation project(":library-base")
     implementation project(":library-network")
 //    implementation 'com.ooimi.library:widget:1.1.0'
 //    implementation 'com.ooimi.library:network:1.0.1'
-    implementation 'com.ooimi.library:base:1.1.1'
+//    implementation 'com.ooimi.library:base:1.1.1'
 }

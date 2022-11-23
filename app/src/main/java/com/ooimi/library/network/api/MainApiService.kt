@@ -1,6 +1,9 @@
 package com.ooimi.library.network.api
 
-import com.ooimi.network.data.ResponseBean
+import com.ooimi.library.bean.AppThemeBean
+import com.ooimi.library.bean.ResponseBean
+import com.ooimi.network.data.BaseResponseBean
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 /**
@@ -10,6 +13,6 @@ import retrofit2.http.POST
  */
 interface MainApiService {
 
-    @POST("/api/test")
-    suspend fun test(): ResponseBean<String>
+    @GET("/api/sdk/guide")
+    suspend fun test(): ResponseBean<AppThemeBean>
 }

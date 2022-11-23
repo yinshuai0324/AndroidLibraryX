@@ -53,7 +53,7 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() 
                     startActivity(Intent(this, WidgetActivity::class.java))
                 }
                 "网络请求" -> {
-
+                    viewModel.getOrderInfo()
                 }
                 "Base模块" -> {
                     startActivity(Intent(this, MainBaseActivity::class.java))

@@ -21,7 +21,7 @@ class MainApplication : Application() {
     private fun initNetwork() {
         //网络模块
         NetworkLibraryBuilder()
-            .addBaseUrl(NetworkLibrary.KEY_DEFAULT_HOST, "https://www.baidu.com")
+            .addBaseUrl(NetworkLibrary.KEY_DEFAULT_HOST, "http://dev-game.duodian.cn")
             .setOpenLog(true)
             .setIsSupportHttps(true)
             .setLogcatTag("OkHttp")

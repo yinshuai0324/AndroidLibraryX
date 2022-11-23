@@ -1,6 +1,8 @@
 package com.ooimi.library.network
 
-import com.ooimi.network.data.ResponseBean
+import android.util.Log
+import android.widget.Toast
+import com.ooimi.network.data.BaseResponseBean
 import com.ooimi.network.handler.BaseRequestResultHandler
 
 /**
@@ -11,8 +13,9 @@ import com.ooimi.network.handler.BaseRequestResultHandler
 class MainRequestResultHandler : BaseRequestResultHandler {
 
 
-    override fun onData(data: ResponseBean<*>, isShowToast: Boolean) {
-        when (data.getRequestCodeAsInt()) {
+    override fun onData(data: BaseResponseBean<*>, isShowToast: Boolean) {
+        Log.i("===>>>","onData:${data.toJsonString()}")
+        when (data.getCode()) {
             0 -> {
                 //成功
             }
@@ -20,5 +23,9 @@ class MainRequestResultHandler : BaseRequestResultHandler {
                 //Token失效等等
             }
         }
+    }
+
+    override fun onException(throwable: Throwable) {
+        Log.i("===>>>", "请求异常:${throwable}")
     }
 }
