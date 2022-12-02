@@ -29,8 +29,7 @@ android {
 }
 
 dependencies {
-    implementation rootProject.ext.lib_core_ktx
-    implementation rootProject.ext.lib_appcompat
+//    implementation rootProject.ext.lib_appcompat
     implementation rootProject.ext.lib_glide
     implementation rootProject.ext.lib_constraintlayout
     annotationProcessor rootProject.ext.lib_glide_compiler

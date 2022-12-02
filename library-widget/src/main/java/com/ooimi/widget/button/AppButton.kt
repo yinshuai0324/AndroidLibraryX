@@ -1,5 +1,6 @@
 package com.ooimi.widget.button
 
+import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Context
@@ -11,7 +12,6 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import androidx.appcompat.widget.AppCompatTextView
-import androidx.core.animation.addListener
 import com.ooimi.widget.layout.RoundHelper
 import com.ooimi.widget.layout.RoundLayout
 import com.ooimi.widget.R
@@ -197,8 +197,22 @@ class AppButton : AppCompatTextView, RoundLayout, View.OnClickListener {
         animatorSet.duration = 100
         animatorSet.interpolator = DecelerateInterpolator()
         animatorSet.play(scaleX).with(scaleY)
-        animatorSet.addListener(onEnd = {
-            invalidate()
+        animatorSet.addListener(object :Animator.AnimatorListener{
+            override fun onAnimationStart(p0: Animator?) {
+
+            }
+
+            override fun onAnimationEnd(p0: Animator?) {
+                invalidate()
+            }
+
+            override fun onAnimationCancel(p0: Animator?) {
+
+            }
+
+            override fun onAnimationRepeat(p0: Animator?) {
+
+            }
         })
         animatorSet.start()
     }
