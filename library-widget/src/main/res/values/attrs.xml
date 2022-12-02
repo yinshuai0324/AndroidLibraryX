@@ -35,6 +35,8 @@
     <attr name="loadAnim" format="boolean" />
     <!--图片加载动画时间-->
     <attr name="animDuration" format="integer" />
+    <!--图标-->
+    <attr name="icon" format="reference" />
 
     <!--网络图片-->
     <declare-styleable name="NetworkImageView">
@@ -254,5 +256,24 @@
         <attr name="onIcon" format="reference" />
         <!--是否为开-->
         <attr name="isOn" format="boolean" />
+    </declare-styleable>
+
+    <!--带Icon的TextView-->
+    <declare-styleable name="IconTextView">
+        <!--Icon的方向-->
+        <attr name="iconDirection" format="enum">
+            <enum name="left" value="1" />
+            <enum name="top" value="2" />
+            <enum name="right" value="3" />
+            <enum name="bottom" value="4" />
+        </attr>
+        <!--Icon和文字的间距-->
+        <attr name="iconSpacing" format="dimension" />
+        <!--Icon宽度-->
+        <attr name="iconWidth" format="dimension" />
+        <!--Icon高度-->
+        <attr name="iconHeight" format="dimension" />
+        <!--图标-->
+        <attr name="icon" />
     </declare-styleable>
 </resources>

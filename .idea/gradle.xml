@@ -12,12 +12,10 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/library-base" />
-            <option value="$PROJECT_DIR$/library-localdata" />
             <option value="$PROJECT_DIR$/library-network" />
             <option value="$PROJECT_DIR$/library-widget" />
           </set>
         </option>
-        <option name="resolveModulePerSourceSet" value="false" />
       </GradleProjectSettings>
     </option>
   </component>
