@@ -4,6 +4,8 @@ import com.ooimi.base.activity.BaseActivity
 import android.content.Intent
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ooimi.base.R
+import com.ooimi.base.utils.ActivityAnimUtils
 import com.ooimi.library.adapter.HomeAdapter
 import com.ooimi.library.databinding.ActivityMainBinding
 import com.ooimi.library.ui.WidgetActivity

@@ -1,5 +1,6 @@
 package com.ooimi.base
 
+import com.ooimi.base.anim.BaseActivitySwitchAnim
 import com.ooimi.base.imp.BaseLoadingModel
 import com.ooimi.base.imp.BasePageStatusModel
 import com.ooimi.base.imp.BaseToastModel
@@ -25,6 +26,11 @@ class BaseLibraryBuilder {
      */
     internal var pageStatusModelImp: BasePageStatusModel? = null
 
+    /**
+     * Activity切换动画
+     */
+    internal var activitySwitchAnim: BaseActivitySwitchAnim? = null
+
 
     fun setLoadingImp(imp: BaseLoadingModel): BaseLibraryBuilder {
         this.loadingModelImp = imp
@@ -38,6 +44,11 @@ class BaseLibraryBuilder {
 
     fun setPageStatusImp(imp: BasePageStatusModel): BaseLibraryBuilder {
         this.pageStatusModelImp = imp
+        return this
+    }
+
+    fun setActivitySwitchAnim(anim: BaseActivitySwitchAnim): BaseLibraryBuilder {
+        this.activitySwitchAnim = anim
         return this
     }
 

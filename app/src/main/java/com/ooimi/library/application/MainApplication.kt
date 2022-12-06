@@ -2,6 +2,8 @@ package com.ooimi.library.application
 
 import android.app.Application
 import com.ooimi.base.BaseLibraryBuilder
+import com.ooimi.base.anim.ActivityFadeSwitchAnim
+import com.ooimi.base.anim.ActivitySlideSwitchAnim
 import com.ooimi.library.network.MainRequestResultHandler
 import com.ooimi.library.ui.base.imp.LoadingModel
 import com.ooimi.network.NetworkLibrary
@@ -30,6 +32,7 @@ class MainApplication : Application() {
         //Base模块
         BaseLibraryBuilder()
             .setLoadingImp(LoadingModel())
+            .setActivitySwitchAnim(ActivityFadeSwitchAnim())
             .init()
     }
 }

@@ -18,6 +18,7 @@ import com.ooimi.base.pagestatus.bindMultiState
 import com.ooimi.base.data.ViewModelEventType
 import com.ooimi.base.dialog.LoadingModelDialog
 import com.ooimi.base.expand.getVmClazz
+import com.ooimi.base.utils.ActivityAnimUtils
 import com.ooimi.base.utils.inflateBindingWithGeneric
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
@@ -62,6 +63,7 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : AppCompatAct
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        ActivityAnimUtils.onOpen(this)
         if (onIsLockVerticalScreen()) {
             //锁定为竖屏
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
@@ -88,6 +90,7 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : AppCompatAct
         handlerViewModelNotice()
         createdObserve()
         initData()
+
     }
 
     private fun handlerViewModelNotice() {
@@ -317,6 +320,11 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : AppCompatAct
         if (isEnableEventBus()) {
             EventBus.getDefault().unregister(this)
         }
+    }
+
+    override fun finish() {
+        super.finish()
+        ActivityAnimUtils.onBack(this)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
