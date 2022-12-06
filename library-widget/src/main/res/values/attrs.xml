@@ -37,6 +37,8 @@
     <attr name="animDuration" format="integer" />
     <!--图标-->
     <attr name="icon" format="reference" />
+    <!--是否加载图片的真实大小-->
+    <attr name="isLoadRealSize" format="boolean" />
 
     <!--网络图片-->
     <declare-styleable name="NetworkImageView">
@@ -46,6 +48,7 @@
         <attr name="loadCallback" />
         <attr name="loadAnim" />
         <attr name="animDuration" />
+        <attr name="isLoadRealSize" />
     </declare-styleable>
 
 
@@ -57,6 +60,7 @@
         <attr name="loadCallback" />
         <attr name="loadAnim" />
         <attr name="animDuration" />
+        <attr name="isLoadRealSize" />
     </declare-styleable>
 
 

@@ -9,6 +9,8 @@ import com.bumptech.glide.TransitionOptions
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
+import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target.SIZE_ORIGINAL
 import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 import com.bumptech.glide.request.transition.NoTransition
 import com.ooimi.widget.WidgetLibrary
@@ -32,6 +34,7 @@ class LoadImageHelper constructor(val view: ImageView) {
         errorRes: Int,
         animDuration: Int,
         loadAnim: Boolean,
+        realSize: Boolean,
         callback: LoadImageCallback
     ) {
         if (TextUtils.isEmpty(url)) {
@@ -52,8 +55,7 @@ class LoadImageHelper constructor(val view: ImageView) {
             )
         } else {
             //否则 使用自身的默认加载
-
-            val build = Glide.with(view).load(imageUrl).placeholder(loadingRes)
+            Glide.with(view).load(imageUrl).placeholder(loadingRes)
                 .error(errorRes).listener(object : OnLoadingImageListener() {
                     override fun onLoadImageSucceed(drawable: Drawable?) {
                         Log.i("===>>>", "load image succeed:${imageUrl}")
@@ -65,14 +67,30 @@ class LoadImageHelper constructor(val view: ImageView) {
                         callback.onLoadFailure(exception, imageUrl)
                     }
                 })
-            if (loadAnim) {
-                val factory =
-                    DrawableCrossFadeFactory.Builder(animDuration).setCrossFadeEnabled(loadAnim)
-                        .build()
-                build.transition(withCrossFade(factory)).into(view)
-            } else {
-                build.into(view)
-            }
+                .apply(getIsLoadRealSize(realSize))
+                .transition(getIsLoadAnim(loadAnim, animDuration))
+                .into(view)
+        }
+    }
+
+    /**
+     * 是否加载原始大小
+     */
+    private fun getIsLoadRealSize(realSize: Boolean): RequestOptions {
+        return if (realSize) RequestOptions().override(
+            SIZE_ORIGINAL,
+            SIZE_ORIGINAL
+        ) else RequestOptions()
+    }
+
+    /**
+     * 是否启用加载动画
+     */
+    private fun getIsLoadAnim(anim: Boolean, animDuration: Int): DrawableTransitionOptions {
+        return if (anim) {
+            withCrossFade(animDuration)
+        } else {
+            withCrossFade().dontTransition()
         }
     }
 

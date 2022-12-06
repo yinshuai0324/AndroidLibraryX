@@ -24,6 +24,7 @@ class NetworkRoundImageView : RoundImageView, LoadImageCallback {
     private var loadCallback: Boolean = false
     private var loadAnim: Boolean = false
     private var animDuration: Int = 300
+    private var isLoadRealSize: Boolean = false
 
     /**
      * 图片加载监听
@@ -41,6 +42,7 @@ class NetworkRoundImageView : RoundImageView, LoadImageCallback {
         loadCallback = attrs.getBoolean(R.styleable.NetworkImageView_loadCallback, false)
         loadAnim = attrs.getBoolean(R.styleable.NetworkImageView_loadAnim, false)
         animDuration = attrs.getInteger(R.styleable.NetworkImageView_animDuration, 300)
+        isLoadRealSize = attrs.getBoolean(R.styleable.NetworkImageView_isLoadRealSize, false)
         attrs.recycle()
         if (isInEditMode) {
             setImageResource(loadingRes)
@@ -54,7 +56,7 @@ class NetworkRoundImageView : RoundImageView, LoadImageCallback {
      * 加载图片
      */
     fun load(url: String?) {
-        helper.load(url, loadingRes, errorRes, animDuration, loadAnim, this)
+        helper.load(url, loadingRes, errorRes, animDuration, loadAnim, isLoadRealSize, this)
     }
 
     /**
