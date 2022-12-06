@@ -6,12 +6,12 @@ import android.animation.ObjectAnimator
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.util.Log
 import android.view.Gravity
 import android.view.MotionEvent
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.ContextCompat
 import com.ooimi.widget.layout.RoundHelper
 import com.ooimi.widget.layout.RoundLayout
 import com.ooimi.widget.R
@@ -92,7 +92,7 @@ class AppButton : AppCompatTextView, RoundLayout, View.OnClickListener {
         disable = attrs.getBoolean(R.styleable.AppButton_disable, false)
         disableColor = attrs.getColor(
             R.styleable.AppButton_disableColor,
-            helper.getColor(R.color.color_D3D3D3)
+            ContextCompat.getColor(context, R.color.color_D3D3D3)
         )
         disableTextColor = attrs.getColor(
             R.styleable.AppButton_disableTextColor,
@@ -197,7 +197,7 @@ class AppButton : AppCompatTextView, RoundLayout, View.OnClickListener {
         animatorSet.duration = 100
         animatorSet.interpolator = DecelerateInterpolator()
         animatorSet.play(scaleX).with(scaleY)
-        animatorSet.addListener(object :Animator.AnimatorListener{
+        animatorSet.addListener(object : Animator.AnimatorListener {
             override fun onAnimationStart(p0: Animator?) {
 
             }
@@ -261,11 +261,11 @@ class AppButton : AppCompatTextView, RoundLayout, View.OnClickListener {
         when (disableEffect) {
             0 -> {
                 this.alpha = if (disable) 0.5f else 1f
-                helper.setBackgroundColorNotRes(helper.getBackgroundColor())
+                helper.setBackgroundColor(helper.getBackgroundColor())
                 setTextColor(textColors.defaultColor)
             }
             1 -> {
-                helper.setBackgroundColorNotRes(if (disable) disableColor else helper.getBackgroundColor())
+                helper.setBackgroundColor(if (disable) disableColor else helper.getBackgroundColor())
                 setTextColor(if (isDisable) disableTextColor else textColors.defaultColor)
             }
         }
@@ -307,7 +307,5 @@ class AppButton : AppCompatTextView, RoundLayout, View.OnClickListener {
         }
     }
 
-    override fun setBackgroundColorRaw(color: Int) {
-        helper.setBackgroundColorRaw(color)
-    }
+
 }

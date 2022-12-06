@@ -306,7 +306,7 @@ class RoundHelper constructor(val isViewGroup: Boolean) {
      * 设置边框颜色
      */
     fun setBorderColor(color: Int) {
-        borderColor = getColor(color)
+        borderColor = color
         updateParams()
         rootView.invalidate()
     }
@@ -316,7 +316,7 @@ class RoundHelper constructor(val isViewGroup: Boolean) {
      */
     fun setBorder(width: Float, color: Int) {
         borderWidth = width
-        borderColor = getColor(color)
+        borderColor = color
         updateParams()
         rootView.invalidate()
     }
@@ -347,22 +347,6 @@ class RoundHelper constructor(val isViewGroup: Boolean) {
      * 设置背景颜色
      */
     fun setBackgroundColor(color: Int) {
-        tempBackgroundColor = getColor(color)
-        rootView.invalidate()
-    }
-
-    /**
-     * 设置背景颜色
-     */
-    fun setBackgroundColorRaw(color: Int) {
-        tempBackgroundColor = color
-        rootView.invalidate()
-    }
-
-    /**
-     * 设置背景颜色
-     */
-    fun setBackgroundColorNotRes(color: Int) {
         tempBackgroundColor = color
         rootView.invalidate()
     }
@@ -381,13 +365,6 @@ class RoundHelper constructor(val isViewGroup: Boolean) {
         this.isCircle = circle
         updateParams()
         rootView.invalidate()
-    }
-
-    /**
-     * 获取颜色
-     */
-    fun getColor(color: Int): Int {
-        return ContextCompat.getColor(mContext, color)
     }
 
 }

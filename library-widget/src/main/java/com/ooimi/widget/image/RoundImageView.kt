@@ -71,7 +71,4 @@ open class RoundImageView : BaseImageView, RoundLayout {
         helper.setBackgroundColor(color)
     }
 
-    override fun setBackgroundColorRaw(color: Int) {
-        helper.setBackgroundColorRaw(color)
-    }
 }

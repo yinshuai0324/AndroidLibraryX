@@ -67,7 +67,5 @@ class RoundTextView : AppCompatTextView, RoundLayout {
         helper.setBackgroundColor(color)
     }
 
-    override fun setBackgroundColorRaw(color: Int) {
-        helper.setBackgroundColorRaw(color)
-    }
+
 }

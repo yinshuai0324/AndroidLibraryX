@@ -64,7 +64,4 @@ open class RoundFrameLayout : FrameLayout, RoundLayout {
     override fun setBackgroundColors(color: Int) {
         helper.setBackgroundColor(color)
     }
-    override fun setBackgroundColorRaw(color: Int) {
-        helper.setBackgroundColorRaw(color)
-    }
 }
