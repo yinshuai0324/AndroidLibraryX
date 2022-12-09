@@ -131,8 +131,12 @@ object ApiRequest {
             if (NetworkLibrary.getConfig().isOpenLog) {
                 exception.printStackTrace()
             }
-            //异常时回调
-            config.requestResultHandler?.onException(exception)
+            if (exception is ApiRequestException) {
+                config.requestResultHandler?.onBusinessException(exception)
+            } else {
+                //异常时回调
+                config.requestResultHandler?.onException(exception)
+            }
             //发生异常时回掉 ui线程
             when (exception) {
                 is ApiRequestException -> {

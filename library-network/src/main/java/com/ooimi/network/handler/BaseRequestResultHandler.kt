@@ -1,6 +1,7 @@
 package com.ooimi.network.handler
 
 import com.ooimi.network.data.BaseResponseBean
+import com.ooimi.network.exception.ApiRequestException
 
 /**
  * @类作用描述:请求结果处理
@@ -15,7 +16,12 @@ interface BaseRequestResultHandler {
     fun onData(data: BaseResponseBean<*>, isShowToast: Boolean)
 
     /**
-     * 发生异常时调用
+     * 其他异常时调用
      */
     fun onException(throwable: Throwable)
+
+    /**
+     * 业务层的异常
+     */
+    fun onBusinessException(exception: ApiRequestException)
 }
