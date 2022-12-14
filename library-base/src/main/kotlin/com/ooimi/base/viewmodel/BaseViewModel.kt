@@ -4,6 +4,7 @@ import android.app.Activity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.blankj.utilcode.util.ActivityUtils
+import com.ooimi.base.BaseLibrary
 import com.ooimi.base.pagestatus.PageStatus
 import com.ooimi.base.data.ViewModelEventData
 import com.ooimi.base.data.ViewModelEventType
@@ -25,7 +26,7 @@ open class BaseViewModel : ViewModel() {
     /**
      * 每页的数据条数
      */
-    val pageSize = 15
+    val pageSize = BaseLibrary.config?.defaultPageSize ?: 20
 
     /**
      * toast
@@ -87,7 +88,6 @@ open class BaseViewModel : ViewModel() {
             eventNoticeData.value = ViewModelEventData(ViewModelEventType.EVENT_REFRESH_DATA)
         }
     }
-
 
 
     /**

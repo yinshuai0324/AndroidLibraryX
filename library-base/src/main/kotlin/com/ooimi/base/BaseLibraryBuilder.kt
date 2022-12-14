@@ -31,6 +31,11 @@ class BaseLibraryBuilder {
      */
     internal var activitySwitchAnim: BaseActivitySwitchAnim? = null
 
+    /**
+     * 数据默认每页的大小
+     */
+    internal var defaultPageSize = 20
+
 
     fun setLoadingImp(imp: BaseLoadingModel): BaseLibraryBuilder {
         this.loadingModelImp = imp
@@ -49,6 +54,11 @@ class BaseLibraryBuilder {
 
     fun setActivitySwitchAnim(anim: BaseActivitySwitchAnim): BaseLibraryBuilder {
         this.activitySwitchAnim = anim
+        return this
+    }
+
+    fun setDefaultPageSize(defaultPageSize: Int): BaseLibraryBuilder {
+        this.defaultPageSize = defaultPageSize
         return this
     }
 
