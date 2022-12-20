@@ -169,6 +169,14 @@ object ApiRequest {
     }
 
     /**
+     * 获取默认的协程作用域
+     */
+    @JvmStatic
+    fun getDefaultScope(): CoroutineScope {
+        return defaultScope
+    }
+
+    /**
      * 获取默认的ApiService
      */
     @JvmStatic

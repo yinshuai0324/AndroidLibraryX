@@ -5,7 +5,7 @@ task generateSourcesJar(type: Jar) {
     classifier 'sources'
 }
 
-def versionName = "1.2.1"
+def versionName = "1.2.2"
 def groupId_ = "com.ooimi.library"
 def artifactId_ = "network"
 
