@@ -30,6 +30,7 @@ android {
 
 dependencies {
     api rootProject.ext.lib_retrofit
+    implementation rootProject.ext.lib_retrofit_converter_scalars
     implementation rootProject.ext.lib_retrofit_converter_gson
     implementation rootProject.ext.lib_retrofit_logging_interceptor
     implementation rootProject.ext.lib_coroutines

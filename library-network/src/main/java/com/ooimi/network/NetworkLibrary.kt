@@ -10,6 +10,7 @@ import com.ooimi.network.ssl.SSLManager
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.lang.NullPointerException
 import java.net.Proxy
 import java.util.concurrent.TimeUnit
@@ -107,6 +108,7 @@ object NetworkLibrary {
     private fun getRetrofitInstance(host: String): Retrofit {
         val instance = Retrofit.Builder()
         instance.baseUrl(host)
+        instance.addConverterFactory(ScalarsConverterFactory.create())
         instance.addConverterFactory(GsonConverterFactory.create())
         instance.client(okHttpClient)
         instance.build()

@@ -23,6 +23,8 @@ ext {
     lib_runtime_ktx = "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0-alpha02"
     //网络请求
     lib_retrofit = "com.squareup.retrofit2:retrofit:2.9.0"
+    //网络请求标准转换器
+    lib_retrofit_converter_scalars = "com.squareup.retrofit2:converter-scalars:2.9.0"
     //网络请求转换器
     lib_retrofit_converter_gson = "com.squareup.retrofit2:converter-gson:2.5.0"
     //网络请求日志打印
