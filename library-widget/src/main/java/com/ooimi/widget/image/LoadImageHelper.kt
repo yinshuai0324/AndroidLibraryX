@@ -1,5 +1,6 @@
 package com.ooimi.widget.image
 
+import android.app.Activity
 import android.graphics.drawable.Drawable
 import android.text.TextUtils
 import android.util.Log
@@ -54,6 +55,15 @@ class LoadImageHelper constructor(val view: ImageView) {
                 callback
             )
         } else {
+            if (view.context == null) {
+                return
+            }
+            if (view.context is Activity && (view.context as Activity).isFinishing) {
+                return
+            }
+            if (view.context is Activity && (view.context as Activity).isDestroyed) {
+                return
+            }
             //否则 使用自身的默认加载
             Glide.with(view).load(imageUrl).placeholder(loadingRes)
                 .error(errorRes).listener(object : OnLoadingImageListener() {

@@ -107,11 +107,10 @@ object NetworkLibrary {
      */
     private fun getRetrofitInstance(host: String): Retrofit {
         val instance = Retrofit.Builder()
+        instance.client(okHttpClient)
         instance.baseUrl(host)
         instance.addConverterFactory(ScalarsConverterFactory.create())
         instance.addConverterFactory(GsonConverterFactory.create())
-        instance.client(okHttpClient)
-        instance.build()
         return instance.build()
     }
 
