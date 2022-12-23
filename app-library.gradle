@@ -7,6 +7,8 @@ ext {
     lib_material = "com.google.android.material:material:1.4.0"
     //约束布局
     lib_constraintlayout = "androidx.constraintlayout:constraintlayout:2.0.4"
+    //Android12的开屏页
+    lib_splashscreen = "androidx.core:core-splashscreen:1.0.0-beta02"
     //图片加载
     lib_glide = "com.github.bumptech.glide:glide:4.13.2"
     //图片加载-compiler
