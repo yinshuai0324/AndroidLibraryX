@@ -3,6 +3,7 @@ package com.ooimi.library.network
 import android.util.Log
 import android.widget.Toast
 import com.ooimi.network.data.BaseResponseBean
+import com.ooimi.network.exception.ApiRequestException
 import com.ooimi.network.handler.BaseRequestResultHandler
 
 /**
@@ -27,5 +28,9 @@ class MainRequestResultHandler : BaseRequestResultHandler {
 
     override fun onException(throwable: Throwable) {
         Log.i("===>>>", "请求异常:${throwable}")
+    }
+
+    override fun onBusinessException(exception: ApiRequestException) {
+
     }
 }

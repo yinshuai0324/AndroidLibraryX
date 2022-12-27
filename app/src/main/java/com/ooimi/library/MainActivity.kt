@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ooimi.base.R
 import com.ooimi.base.utils.ActivityAnimUtils
+import com.ooimi.expand.safeGetFront
 import com.ooimi.library.adapter.HomeAdapter
 import com.ooimi.library.databinding.ActivityMainBinding
 import com.ooimi.library.ui.WidgetActivity
@@ -42,7 +43,10 @@ class MainActivity : BaseActivity<MainActivityViewModel, ActivityMainBinding>() 
                     viewModel.getOrderInfo()
                 }
                 "Base模块" -> {
-                    startActivity(Intent(this, MainBaseActivity::class.java))
+//                    startActivity(Intent(this, MainBaseActivity::class.java))
+
+                    val array= arrayListOf("1","2")
+                    Log.i("===>>>","${array.safeGetFront(3)}")
                 }
             }
         }

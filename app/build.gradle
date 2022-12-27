@@ -43,6 +43,7 @@ dependencies {
     implementation project(":library-widget")
     implementation project(":library-base")
     implementation project(":library-network")
+    implementation project(":library-expand")
 
     implementation "com.dolatkia:animated-theme-manager:1.1.4"
 //    implementation 'com.ooimi.library:widget:1.1.0'

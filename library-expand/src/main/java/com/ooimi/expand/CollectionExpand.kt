@@ -26,11 +26,9 @@ fun <T> List<T>.safeGet(index: Int): T? {
 fun <T> List<T>.safeGetFront(size: Int): List<T> {
     return try {
         if (this.size > size) {
-            return this.subList(0, size - 1)
-        } else if (this.size == size) {
-            return this
+            return this.subList(0, size)
         } else {
-            return this.subList(0, this.size - 1)
+            return this
         }
     } catch (e: Exception) {
         e.printStackTrace()

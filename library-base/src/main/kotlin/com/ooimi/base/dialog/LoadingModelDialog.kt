@@ -45,12 +45,14 @@ class LoadingModelDialog {
         // 点击加载框以外的区域
         dialog.setCanceledOnTouchOutside(loadingModelImp?.isTouchOutsideDismiss() ?: false)
         // 设置布局
-        dialog.setContentView(
-            rootView, LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT
+        rootView?.let {
+            dialog.setContentView(
+                it, LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT
+                )
             )
-        )
+        }
     }
 
     fun setMessage(msg: String?) {
