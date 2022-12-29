@@ -121,6 +121,10 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : AppCompatAct
                         //刷新页面数据
                         onRefreshPageData()
                     }
+                    ViewModelEventType.EVENT_RESET_REFRESH_STATUS -> {
+                        //重置刷新状态
+                        resetRefreshStatus()
+                    }
                     ViewModelEventType.EVENT_NONE -> {
                         //没有操作
                     }
@@ -144,6 +148,13 @@ abstract class BaseActivity<VM : BaseViewModel, VB : ViewBinding> : AppCompatAct
      * 重试按钮点击
      */
     open fun onRetryClick() {
+
+    }
+
+    /**
+     * 重置刷新状态
+     */
+    open fun resetRefreshStatus() {
 
     }
 

@@ -101,6 +101,16 @@ open class BaseViewModel : ViewModel() {
     }
 
     /**
+     * 重置刷新状态
+     */
+    fun resetRefreshStatus() {
+        viewModelScope.launch(Dispatchers.Main) {
+            eventNoticeData.value =
+                ViewModelEventData(ViewModelEventType.EVENT_RESET_REFRESH_STATUS)
+        }
+    }
+
+    /**
      * 获取Activity
      */
     fun getActivity(): Activity {

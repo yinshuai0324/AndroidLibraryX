@@ -42,6 +42,11 @@ enum class ViewModelEventType {
     EVENT_REFRESH_DATA,
 
     /**
+     * 重置刷新状态
+     */
+    EVENT_RESET_REFRESH_STATUS,
+
+    /**
      * 事件类型：无 不处理该事件类型
      */
     EVENT_NONE

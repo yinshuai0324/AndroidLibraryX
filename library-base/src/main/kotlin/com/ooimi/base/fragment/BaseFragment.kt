@@ -226,6 +226,10 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewBinding> : Fragment() {
                         //刷新页面数据
                         onRefreshPageData()
                     }
+                    ViewModelEventType.EVENT_RESET_REFRESH_STATUS -> {
+                        //重置刷新状态
+                        resetRefreshStatus()
+                    }
                     else -> {
                         //无需处理
                     }
@@ -298,6 +302,13 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewBinding> : Fragment() {
      * 刷新页面数据
      */
     open fun onRefreshPageData() {
+
+    }
+
+    /**
+     * 重置刷新状态
+     */
+    open fun resetRefreshStatus() {
 
     }
 
