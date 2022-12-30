@@ -34,7 +34,7 @@ class NetworkRequestDsl<T> {
      * 基础数据
      */
     var totalRecord: Int = 0
-    var baseTime: Long = 0
+    var timestamp: Long = 0
     var message: String? = ""
     var isShowToast: Boolean = true
 

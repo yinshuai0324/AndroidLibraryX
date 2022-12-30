@@ -78,6 +78,8 @@ object ApiRequest {
             response?.let {
                 //存一下服务端返回的描述
                 requestDsl.message = it.getMessage()
+                //存一下时间戳
+                requestDsl.timestamp = it.getTimestamp()
                 //回掉整个请求结果
                 launchUi(scope) {
                     //处理请求结果

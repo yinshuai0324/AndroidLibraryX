@@ -1,4 +1,5 @@
 package com.ooimi.network.data
+
 import com.google.gson.Gson
 
 /**
@@ -26,6 +27,11 @@ abstract class BaseResponseBean<T> {
      * 获取业务端的Code
      */
     abstract fun getCode(): Int
+
+    /**
+     * 获取当前服务器时间
+     */
+    abstract fun getTimestamp(): Long
 
     /**
      * 把当前类转成JsonString
