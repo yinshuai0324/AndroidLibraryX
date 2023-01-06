@@ -1,9 +1,12 @@
 package com.ooimi.library
+
 import android.util.Log
+import androidx.lifecycle.viewModelScope
 import com.ooimi.base.viewmodel.BaseViewModel
 import com.ooimi.library.bean.AppThemeBean
 import com.ooimi.library.network.api.MainApiService
 import com.ooimi.network.expand.*
+import kotlinx.coroutines.launch
 
 /**
  * @类作用描述:
@@ -23,5 +26,9 @@ class MainActivityViewModel : BaseViewModel() {
                 Log.i("===>>>", "请求失败:${errorMsg}")
             }
         }
+
+        viewModelScope.launch {
+        }
+
     }
 }

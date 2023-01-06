@@ -2,6 +2,7 @@ package com.ooimi.network.request
 
 import com.ooimi.network.NetworkLibrary
 import com.ooimi.network.code.HttpCode
+import com.ooimi.network.data.BaseResponseBean
 import com.ooimi.network.dsl.NetworkRequestDsl
 import com.ooimi.network.exception.ApiRequestException
 import kotlinx.coroutines.*
@@ -34,11 +35,35 @@ object ApiRequest {
 
 
     /**
-     * api同步请求 处理异常
+     * api同步请求 处理异常 并且返回业务数据
      */
-    suspend fun <T> safeApiRequestAwait(api: suspend () -> T): T? {
+    suspend fun <T> safeApiRequestAwait(api: suspend () -> BaseResponseBean<T>): T? {
         return try {
-            api.invoke()
+            val response = api.invoke()
+            //回掉整个请求结果
+            launchUi(defaultScope) {
+                //处理请求结果
+                config.requestResultHandler?.onData(response, true)
+            }
+            response.getBody()
+        } catch (e: Exception) {
+            null
+        } finally {
+        }
+    }
+
+    /**
+     * api同步请求 处理异常 并且返回原始数据
+     */
+    suspend fun <T> safeRequestAwait(api: suspend () -> BaseResponseBean<T>): BaseResponseBean<T>? {
+        return try {
+            val response = api.invoke()
+            //回掉整个请求结果
+            launchUi(defaultScope) {
+                //处理请求结果
+                config.requestResultHandler?.onData(response, true)
+            }
+            response
         } catch (e: Exception) {
             null
         } finally {

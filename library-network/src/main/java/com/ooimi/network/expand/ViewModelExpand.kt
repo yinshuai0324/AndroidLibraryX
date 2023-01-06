@@ -3,6 +3,7 @@ package com.ooimi.network.expand
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ooimi.network.NetworkLibrary
+import com.ooimi.network.data.BaseResponseBean
 import com.ooimi.network.dsl.NetworkRequestDsl
 import com.ooimi.network.request.ApiRequest
 import kotlinx.coroutines.launch
@@ -23,8 +24,16 @@ suspend fun <T> ViewModel.apiRequestAwait(block: suspend () -> T?): T? {
 /**
  * Api请求 同步 安全调用
  */
-suspend fun <T> ViewModel.safeApiRequestAwait(block: suspend () -> T?): T? {
-    return ApiRequest.safeApiRequestAwait(block)
+suspend fun <T> ViewModel.safeApiRequestAwait(api: suspend () -> BaseResponseBean<T>): T? {
+    return ApiRequest.safeApiRequestAwait(api)
+}
+
+
+/**
+ * Api请求 同步 安全调用
+ */
+suspend fun <T> ViewModel.safeRequestAwait(api: suspend () -> BaseResponseBean<T>): BaseResponseBean<T>? {
+    return ApiRequest.safeRequestAwait(api)
 }
 
 /**
